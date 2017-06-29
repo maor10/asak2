@@ -90,6 +90,7 @@ class Track(db.Model):
 
 class Comment(db.Model):
     id = db.Column(db.Integer, primary_key=True)
+    poster = db.Column(db.String(256))
     text = db.Column(db.Text(1024))
     published = db.Column(db.Date(), default=datetime.now)
     teacher_id = db.Column(db.Integer, db.ForeignKey('teacher.id'))

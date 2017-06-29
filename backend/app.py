@@ -2,7 +2,7 @@ import json
 import os
 
 from PIL import Image
-from flask import Flask, send_from_directory, request, session
+from flask import Flask, send_from_directory, request, session, abort
 from flask_uploads import configure_uploads, UploadNotAllowed
 
 import config
@@ -70,7 +70,7 @@ def create_photo():
         try:
             file_name = uploaded_photos.save(photo)
         except UploadNotAllowed:
-            return json.dumps(False)
+            abort(401, 'The selected file type is not allowed')
         else:
             photo = Photo(file_name=file_name, text=text)
             teachers = [Teacher.query.get(id) for id in teachers]
@@ -80,6 +80,10 @@ def create_photo():
             db.session.commit()
     return json.dumps(True)
 
+
+@app.route('/teachers', methods=['GET'])
+def teachers():
+    return json.dumps(Teacher.query.all(), cls=TeacherEncoder)
 
 
 @app.route("/teachers", methods=['POST'])
@@ -98,9 +102,20 @@ def create_teacher():
     return json.dump(False)
 
 
-@app.route('/teachers')
-def teachers():
-    return json.dumps(Teacher.query.all(), cls=TeacherEncoder)
+@app.route('/comments', methods=['POST'])
+def create_comment():
+    if request.method == 'POST':
+        form = request.form
+        teacher_id = int(form['teacher_id'])
+        comment_poster = form['poster']
+        comment_text = form['text']
+        if Teacher.query.get(teacher_id):
+            comment = Comment(teacher_id=teacher_id, poster=comment_poster, text=comment_text)
+            db.session.add(comment)
+            db.session.commit()
+        else:
+            abort(401, 'Teacher not found')
+    return json.dump(False)
 
 
 @app.route("/login", methods=['POST'])
@@ -118,9 +133,7 @@ def login():
 @app.route('/logout', methods=['POST'])
 def logout():
     session.pop('username', None)
-    return True
-
-
+    return json.dumps(True)
 
 
 def _send_template(file):
