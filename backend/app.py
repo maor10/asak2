@@ -81,7 +81,6 @@ def create_photo():
     return json.dumps(True)
 
 
-
 @app.route("/teachers", methods=['POST'])
 def create_teacher():
     if request.method == 'POST':

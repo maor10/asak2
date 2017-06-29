@@ -1,10 +1,9 @@
 /**
  * Represents the gallery controller
  */
-app.controller('GalleryCtrl', function($scope, $http, Upload, Photo, Teacher) {
+app.controller('GalleryCtrl', function($scope, $http, Upload, Photo) {
 
-    $scope.photos = Photo.query();
-    $scope.teachers = Teacher.query();
+    this.photos = Photo.query();
 
 });
 

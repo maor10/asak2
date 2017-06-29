@@ -1,32 +1,24 @@
 /**
  * Upload photo controller
  */
-app.controller('UploadPhotoCtrl', function($scope, Upload, Photo, Teacher) {
+app.controller('UploadPhotoCtrl', function($scope, Photo) {
 
-    $scope.data = {
-        /**
-         * Photo object being created
-         */
-        photo: {},
+
+    /**
+     * Photo object being created
+     */
+    this.photo = {
+        text: "",
         teachers: []
     };
 
     /**
-     * Load teachers from server
-     */
-    _.forEach(Teacher.getTeachers(), function(value) {
-        $scope.data.teachers[value] = false;
-    });
-
-
-    /**
      * Uploads a photo to the server
      */
-    $scope.uploadPhoto = function() {
+    this.uploadPhoto = function() {
         $("#uploadPhotoModal").modal("hide");
 
-        Photo.upload($scope.data.photo.file, $scope.data.photo.text, getSelectedTeachers(), function(resp) {
-            //todo: update photos
+        Photo.upload(this.photo.file, this.photo.text, this.photo.teachers, function(resp) {
             swal("Uploaded!", "Photo uploaded successfully!", "success");
         }, function (resp) {
             console.log('Error status: ' + resp.status);
@@ -36,11 +28,15 @@ app.controller('UploadPhotoCtrl', function($scope, Upload, Photo, Teacher) {
     };
 
     /**
-     * Gets selected teachers
+     * Toggle teacher in photo.teachers
+     * @param teacherID
      */
-    function getSelectedTeachers() {
-        return _.keys($scope.data.teachers).filter(function (teacher) {
-            return $scope.data.teachers[teacher];
-        });
-    }
+    this.toggleTeacher = function(teacherID) {
+        if (_.includes(this.photo.teachers, teacherID)) {
+            this.photo.teachers.remove(teacherID);
+        } else {
+            this.photo.teachers.push(teacherID);
+        }
+    };
+
 });
