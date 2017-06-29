@@ -60,7 +60,8 @@ class Teacher(db.Model):
 
 class Photo(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    file_name = db.Column(db.String(256))
+    file_name = db.Column(db.String(1024))
+    thumbnail = db.Column(db.String(1024))
     text = db.Column(db.Text(1024))
     published = db.Column(db.Date(), default=datetime.now)
     teachers = db.relationship(

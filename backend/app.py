@@ -1,7 +1,7 @@
 import json
 import os
 
-from PIL import Image
+from PIL import Image, ImageOps
 from flask import Flask, send_from_directory, request, session, abort
 from flask_uploads import configure_uploads, UploadNotAllowed
 
@@ -18,10 +18,24 @@ db.init_app(app)
 configure_uploads(app, uploaded_photos)
 
 
-def create_thumbnail(photo_path, size):
+def create_thumbnail(photo_path, file_name, size=config.THUMBNAIL_SIZE):
+    """
+    Creates a thumbnail for the given photo with the given size.
+    :param photo_path: The full photo path to open the image from.
+    :param file_name: the name of the original photo, for nice naming.
+    :param size: (width, height)
+    :return: thumbnail_path
+    """
     im = Image.open(photo_path)
-    im.thumbnail(size)
-    im.save(photo_path + "_{0}X{1}".format(*size), Image.ANTIALIAS)
+    thumb = ImageOps.fit(im, size, Image.ANTIALIAS)
+    thumbnail_path = os.path.join(config.THUMBNAILS_PATH, "{0}_{1}.jpg".format(file_name, size))
+    thumb.save(thumbnail_path, format='JPEG')
+    return thumbnail_path
+
+
+@app.route('/uploads/photos/<path:photo>')
+def send_photo(photo):
+    return send_from_directory(directory=config.PHOTOS_PATH, filename=photo)
 
 
 @app.route("/media/<path:file>")
@@ -72,7 +86,8 @@ def create_photo():
         except UploadNotAllowed:
             abort(401, 'The selected file type is not allowed')
         else:
-            photo = Photo(file_name=file_name, text=text)
+            thumb_path = create_thumbnail(uploaded_photos.url(file_name), file_name)
+            photo = Photo(file_name=file_name, text=text, thumb_path=thumb_path)
             teachers = [Teacher.query.get(id) for id in teachers]
             for teacher in teachers:
                 teacher.photos.append(photo)
