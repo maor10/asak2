@@ -1,0 +1,36 @@
+
+<div ng-controller="UploadPhotoCtrl">
+    <div class="modal fade" tabindex="-1" role="dialog" id="uploadPhotoModal" aria-labelledby="uploadPhotoLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Upload Photo</h4>
+          </div>
+          <div class="modal-body">
+              <form>
+                  <div class="form-group">
+                      <label>Teachers</label>
+                      <div ng-repeat="teacher in teachers">
+                          {{ teacher.name }}<input ng-model="data.selectedTeachers[teacher.id]" id="{{ teacher.id }}" type="checkbox" />
+                      </div>
+                  </div>
+                    <div class="form-group">
+                     <label for="photo-caption" >A caption for the photo</label>
+                     <textarea class="form-control" ng-model="data.photo.text" id="photo-caption" rows="3"></textarea>
+                    </div>
+                    <div class="form-group">
+                      <label for="photo">Photo</label>
+                      <input type="file" class="form-control-file" ngf-select ng-model="data.photo.file" id="photo" aria-describedby="fileHelp">
+                      <small id="fileHelp" class="form-text text-muted">This is some placeholder block-level help text for the above input. It's a bit lighter and easily wraps to a new line.</small>
+                    </div>
+              </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" ng-click="uploadPhoto()" >Save changes</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+</div>
