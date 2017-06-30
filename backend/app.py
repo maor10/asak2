@@ -76,6 +76,13 @@ def asak():
 
 @app.route('/photos', methods=['GET'])
 def photos():
+    args = request.args
+    if 'teacher_id' in args:
+        return json.dumps(Teacher.query.get(int(args['teacher_id'])), cls=PhotoEncoder)
+    elif 'track_id' in args:
+        teachers = Teacher.query.filter_by(track_id=int(args['track_id']).all())
+        photos = reduce(lambda x, y: x + y, [teacher.photos for teacher in teachers])
+        return json.dumps(photos, cls=PhotoEncoder)
     return json.dumps(Photo.query.all(), cls=PhotoEncoder)
 
 
