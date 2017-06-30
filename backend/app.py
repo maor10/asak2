@@ -120,7 +120,7 @@ def teachers():
     return json.dumps(Teacher.query.all(), cls=TeacherEncoder)
 
 
-@app.route('/teachers/<id>', methods=['GET'])
+@app.route('/teacher/<id>', methods=['GET'])
 def get_teacher(id):
     return json.dumps(Teacher.query.get(id), cls=TeacherEncoder)
 
