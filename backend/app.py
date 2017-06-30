@@ -117,10 +117,12 @@ def create_photo():
 
 @app.route('/teachers', methods=['GET'])
 def teachers():
+    if "teacherID" in request.args:
+        return get_teacher(request.args["teacherID"])
     return json.dumps(Teacher.query.all(), cls=TeacherEncoder)
 
 
-@app.route('/teacher/<id>', methods=['GET'])
+@app.route('/teachers/<id>', methods=['GET'])
 def get_teacher(id):
     return json.dumps(Teacher.query.get(id), cls=TeacherEncoder)
 
