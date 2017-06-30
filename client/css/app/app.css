@@ -6668,6 +6668,7 @@ ul.icon-list.icon-list-block li:not(:last-of-type) {
 .label-grey-100[href]:focus {
   background-color: #dcdcdc;
 }
+/*
 .highlight {
   padding: 10px;
   overflow: hidden;
@@ -6692,7 +6693,7 @@ ul.icon-list.icon-list-block li:not(:last-of-type) {
   word-wrap: normal;
   white-space: pre;
   color: #e6e1dc;
-}
+}*/
 .media-heading {
   margin-bottom: 10px;
 }
