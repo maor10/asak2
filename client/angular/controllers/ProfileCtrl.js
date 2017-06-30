@@ -9,10 +9,13 @@ app.controller('ProfileCtrl', function($scope, $routeParams, Photo, Teacher, Com
 
 
     /**
-     * Sends a message to the server
+     * Sends a comment to the server
      */
-    this.sendMessage = function() {
-        $("#uploadPhotoModal").modal("show");
+    this.sendComment = function() {
+        comment = new Comment({
+            poster: this.poster,
+
+        })
     }
 
 });

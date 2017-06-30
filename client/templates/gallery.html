@@ -9,7 +9,7 @@
                 <span>{{ photo.text }}</span>
                 <hr/>
                 <div>
-                    <a ng-repeat="teacher in photo.teachers" href="#" class="btn btn-primary btn-xs teacher-tag">
+                    <a ng-repeat="teacher in photo.teachers" href="asak#!/teachers/{{ teacher.id }}" class="btn btn-primary btn-xs teacher-tag">
                         #{{ teacher.name }}
                     </a>
                 </div>

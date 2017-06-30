@@ -12,7 +12,8 @@
             <md-autocomplete md-selected-item="teachers.selectedTeacher"
                              md-search-text="teachers.searchText"
                              md-items="teacher in teachers.getMatchingTeachers(teachers.searchText)"
-                             md-item-text="teacher.name">
+                             md-item-text="teacher.name"
+                            md-no-cache="true">
                 <md-item-template>
                     <span md-highlight-text="teachers.searchText">{{teacher.name}}</span>
                 </md-item-template>

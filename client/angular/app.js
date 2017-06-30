@@ -10,7 +10,7 @@ var app = angular.module("asak", ['ngRoute', 'ngResource', 'ngFileUpload', 'ngMa
                 controller: "TeachersCtrl as teachers",
                 templateUrl: "/media/templates/teachers.html"
             })
-            .when('/teacher/:id', {
+            .when('/teachers/:id', {
                 controller: "ProfileCtrl as profile",
                 templateUrl: "/media/templates/teacher-profile.html"
             });
