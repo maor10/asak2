@@ -36,7 +36,7 @@ class CommentEncoder(json.JSONEncoder):
             "id": comment.id,
             "poster": comment.poster,
             "text": comment.text,
-            "published": comment.published,
+            "published": comment.published.ctime(),
             "teacher_id": comment.teacher_id
         }
 

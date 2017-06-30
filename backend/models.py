@@ -47,7 +47,7 @@ photos_teachers = db.Table('photos_teachers',
 
 class Teacher(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(80), unique=True)
+    name = db.Column(db.Text(80), unique=True)
     track_id = db.Column(db.Integer, db.ForeignKey('track.id'))
     comments = db.relationship('Comment', backref="teacher")
 
@@ -80,7 +80,7 @@ class Photo(db.Model):
 
 class Track(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(256))
+    name = db.Column(db.Text(256))
     teachers = db.relationship('Teacher', backref='track')
 
 
@@ -88,5 +88,5 @@ class Comment(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     poster = db.Column(db.String(256))
     text = db.Column(db.Text(1024))
-    published = db.Column(db.Date(), default=datetime.now)
+    published = db.Column(db.DateTime(), default=datetime.now)
     teacher_id = db.Column(db.Integer, db.ForeignKey('teacher.id'))

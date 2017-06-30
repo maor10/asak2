@@ -93,7 +93,6 @@ def photos():
 
 @app.route('/photos', methods=['POST'])
 def create_photo():
-    print request.files
     if request.method == 'POST':
         form = request.form
         photo = request.files['photo']
@@ -145,11 +144,11 @@ def create_teacher():
 
 @app.route('/comments', methods=['POST'])
 def create_comment():
+    data = json.loads(request.data)
     if request.method == 'POST':
-        form = request.form
-        teacher_id = int(form['teacher_id'])
-        comment_poster = form['poster']
-        comment_text = form['text']
+        teacher_id = data["teacher_id"]
+        comment_poster = data['poster']
+        comment_text = data['text']
         if Teacher.query.get(teacher_id):
             comment = Comment(teacher_id=teacher_id, poster=comment_poster, text=comment_text)
             db.session.add(comment)
@@ -166,7 +165,7 @@ def comments_for_teacher():
     except KeyError:
         abort(500, "You must have a teacher id")
     teacher = Teacher.query.get(teacher_id)
-    return json.dumps(teacher.comments)
+    return json.dumps(teacher.comments, cls=CommentEncoder)
 
 
 @app.route("/login", methods=['POST'])
