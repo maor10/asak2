@@ -13,6 +13,7 @@ from models import *
 THUMBNAIL_SIZE = (300, 200)
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['UPLOADS_DEFAULT_DEST'] = config.PHOTOS_PATH
 db.init_app(app)
 configure_uploads(app, uploaded_photos)
@@ -24,14 +25,19 @@ def create_thumbnail(photo_path, file_name, size=config.THUMBNAIL_SIZE):
     :param photo_path: The full photo path to open the image from.
     :param file_name: the name of the original photo, for nice naming.
     :param size: (width, height)
-    :return: thumbnail_path
+    :return thumb name
     """
     im = Image.open(photo_path)
     thumb = ImageOps.fit(im, size, Image.ANTIALIAS)
-    thumbnail_path = os.path.join(config.THUMBNAILS_PATH, "{0}_{1}.jpg".format(file_name, size))
+    thumb_name = "{0}_{1}X{2}.jpg".format(file_name, *size)
+    thumbnail_path = os.path.join(config.THUMBNAILS_PATH, thumb_name)
     thumb.save(thumbnail_path, format='JPEG')
-    return thumbnail_path
+    return thumb_name
 
+
+def get_url_for_thumb(thumb_name):
+    url_for_thumb = os.path.join(config.THUMBNAILS_URL, "{0}".format(thumb_name))
+    return url_for_thumb
 
 @app.route('/uploads/photos/<path:photo>')
 def send_photo(photo):
@@ -65,7 +71,6 @@ def landing_page():
 
 @app.route('/asak')
 def asak():
-    print config.TEMPLATES_PATH
     return _send_template("index.html")
 
 
@@ -76,18 +81,20 @@ def photos():
 
 @app.route('/photos', methods=['POST'])
 def create_photo():
+    print request.files
     if request.method == 'POST':
         form = request.form
         photo = request.files['photo']
         text = form['text']
         teachers = map(int, json.loads(form['teachers']))
         try:
-            file_name = uploaded_photos.save(photo)
+            ext = photo.filename.split('.')[-1]
+            file_name = uploaded_photos.save(photo, name='photo.{0}'.format(ext))
         except UploadNotAllowed:
             abort(401, 'The selected file type is not allowed')
         else:
-            thumb_path = create_thumbnail(uploaded_photos.url(file_name), file_name)
-            photo = Photo(file_name=file_name, text=text, thumb_path=thumb_path)
+            thumb_name = create_thumbnail(uploaded_photos.path(file_name), file_name)
+            photo = Photo(file_name=file_name, text=text, thumbnail=get_url_for_thumb(thumb_name))
             teachers = [Teacher.query.get(id) for id in teachers]
             for teacher in teachers:
                 teacher.photos.append(photo)

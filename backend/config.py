@@ -16,4 +16,7 @@ PHOTOS_PATH = os.path.join(os.path.dirname(__file__), "..", "uploads", "photos")
 
 THUMBNAILS_PATH = os.path.join(os.path.dirname(__file__), "..", "uploads", "photos", "thumbs")
 
+THUMBNAILS_URL = os.path.join("..", "/uploads", "photos", "thumbs")
+
+
 THUMBNAIL_SIZE = (300, 300)

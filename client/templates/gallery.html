@@ -3,7 +3,7 @@
 <md-button class="md-raised md-cornered">Button</md-button>
 
 <div class="row" data-toggle="isotope">
-    <div class="col-xs-12 col-md-6 col-lg-4 item" ng-repeat="photo in gallery.photos">
+    <div class="col-xs-12 col-md-6 col-lg-4 item photo-block" ng-repeat="photo in gallery.photos">
         <div class="panel panel-default relative">
             <img ng-src="{{ photo.thumbnail }}" alt="place" class="img-responsive">
             <div class="panel-body">

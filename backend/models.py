@@ -4,7 +4,7 @@ from datetime import datetime
 from flask_uploads import (UploadSet, IMAGES)
 
 db = SQLAlchemy()
-uploaded_photos = UploadSet('photos', IMAGES)
+uploaded_photos = UploadSet('full', IMAGES)
 
 
 class User(db.Model):
@@ -68,10 +68,6 @@ class Photo(db.Model):
         "Teacher",
         secondary=photos_teachers,
         backref=db.backref("photos", lazy="select"), lazy="select")
-
-    def __init__(self, file_name, text):
-        self.file_name = file_name
-        self.text = text
 
     @property
     def imgsrc(self):
