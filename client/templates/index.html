@@ -2,54 +2,55 @@
 <html class="st-layout ls-top-navbar ls-bottom-footer hide-sidebar sidebar-l2" lang="en">
 
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="">
-  <meta name="author" content="">
-  <title>ThemeKit</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>ThemeKit</title>
 
-  <link href="/media/css/vendor/all.css" rel="stylesheet">
-  <link href="/media/css/app/app.css" rel="stylesheet">
+    <link href="/media/css/vendor/all.css" rel="stylesheet">
+    <link href="/media/css/app/app.css" rel="stylesheet">
     <link href="/media/css/asak/all.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css">
 
 </head>
 
 <body ng-app="asak">
 
-  <!-- Wrapper required for sidebar transitions -->
-  <div class="st-container">
+<!-- Wrapper required for sidebar transitions -->
+<div class="st-container">
 
     <!-- Fixed navbar -->
     <div class="navbar navbar-main navbar-primary navbar-fixed-top" role="navigation">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-nav">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a href="#sidebar-chat" data-toggle="sidebar-menu" class="toggle pull-right visible-xs"><i class="fa fa-comments"></i></a>
-          <a class="navbar-brand" href="index.html">Asak</a>
-        </div>
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-nav">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a href="#sidebar-chat" data-toggle="sidebar-menu" class="toggle pull-right visible-xs"><i class="fa fa-comments"></i></a>
+                <a class="navbar-brand" href="index.html">Asak</a>
+            </div>
 
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse" id="main-nav">
-          <ul class="nav navbar-nav navbar-right">
-                <li><a href="/teachers">מפקדים</a></li>
-                <li><a href="/gallery">תמונות</a></li>
-                <li><a href="/messages">צאט</a></li>
-                <li class="hidden-xs">
-                  <a href="#sidebar-chat" data-toggle="sidebar-menu">
-                    <i class="fa fa-comments"></i>
-                  </a>
-              </li>
-          </ul>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="main-nav">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="/teachers">מפקדים</a></li>
+                    <li><a href="/gallery">תמונות</a></li>
+                    <li><a href="/messages">צאט</a></li>
+                    <li class="hidden-xs">
+                        <a href="#sidebar-chat" data-toggle="sidebar-menu">
+                            <i class="fa fa-comments"></i>
+                        </a>
+                    </li>
+                </ul>
 
+            </div>
+            <!-- /.navbar-collapse -->
         </div>
-        <!-- /.navbar-collapse -->
-      </div>
     </div>
 
 
@@ -59,92 +60,104 @@
     <!-- content push wrapper -->
     <div class="st-pusher" id="content">
 
-      <!-- sidebar effects INSIDE of st-pusher: -->
-      <!-- st-effect-3, st-effect-6, st-effect-7, st-effect-8, st-effect-14 -->
+        <!-- sidebar effects INSIDE of st-pusher: -->
+        <!-- st-effect-3, st-effect-6, st-effect-7, st-effect-8, st-effect-14 -->
 
-      <!-- this is the wrapper for the content -->
-      <div class="st-content">
+        <!-- this is the wrapper for the content -->
+        <div class="st-content">
 
-        <!-- extra div for emulating position:fixed of the menu -->
-        <div class="st-content-inner">
+            <!-- extra div for emulating position:fixed of the menu -->
+            <div class="st-content-inner">
 
 
-          <div class="container">
-            <div ng-view></div>
-          </div>
+                <div class="container">
+                    <div ng-view></div>
+                </div>
+
+            </div>
+            <!-- /st-content-inner -->
 
         </div>
-        <!-- /st-content-inner -->
-
-      </div>
-      <!-- /st-content -->
+        <!-- /st-content -->
 
     </div>
     <!-- /st-pusher -->
 
     <!-- Footer -->
     <footer class="footer">
-      <strong>ThemeKit</strong> v4.0.0 &copy; Copyright 2015
+        <strong>ThemeKit</strong> v4.0.0 &copy; Copyright 2015
     </footer>
     <!-- // Footer -->
 
-  </div>
-  <!-- /st-container -->
+</div>
+<!-- /st-container -->
 
-  <!-- Inline Script for colors and config objects; used by various external scripts; -->
-  <script>
+<!-- Inline Script for colors and config objects; used by various external scripts; -->
+<script>
     var colors = {
-      "danger-color": "#e74c3c",
-      "success-color": "#81b53e",
-      "warning-color": "#f0ad4e",
-      "inverse-color": "#2c3e50",
-      "info-color": "#2d7cb5",
-      "default-color": "#6e7882",
-      "default-light-color": "#cfd9db",
-      "purple-color": "#9D8AC7",
-      "mustard-color": "#d4d171",
-      "lightred-color": "#e15258",
-      "body-bg": "#f6f6f6"
+        "danger-color": "#e74c3c",
+        "success-color": "#81b53e",
+        "warning-color": "#f0ad4e",
+        "inverse-color": "#2c3e50",
+        "info-color": "#2d7cb5",
+        "default-color": "#6e7882",
+        "default-light-color": "#cfd9db",
+        "purple-color": "#9D8AC7",
+        "mustard-color": "#d4d171",
+        "lightred-color": "#e15258",
+        "body-bg": "#f6f6f6"
     };
     var config = {
-      theme: "social-3-rtl",
-      skins: {
-        "default": {
-          "primary-color": "#16ae9f"
-        },
-        "orange": {
-          "primary-color": "#e74c3c"
-        },
-        "blue": {
-          "primary-color": "#4687ce"
-        },
-        "purple": {
-          "primary-color": "#af86b9"
-        },
-        "brown": {
-          "primary-color": "#c3a961"
-        },
-        "default-nav-inverse": {
-          "color-block": "#242424"
+        theme: "social-3-rtl",
+        skins: {
+            "default": {
+                "primary-color": "#16ae9f"
+            },
+            "orange": {
+                "primary-color": "#e74c3c"
+            },
+            "blue": {
+                "primary-color": "#4687ce"
+            },
+            "purple": {
+                "primary-color": "#af86b9"
+            },
+            "brown": {
+                "primary-color": "#c3a961"
+            },
+            "default-nav-inverse": {
+                "color-block": "#242424"
+            }
         }
-      }
     };
-  </script>
+</script>
 
+<!-- Angular libraries -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular-route.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular-resource.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-aria.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js"></script>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular-route.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular-resource.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/danialfarid-angular-file-upload/12.2.13/ng-file-upload.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.min.js"></script>
-  <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  <script src="/media/angular/app.js"></script>
-  <script src="/media/angular/services/photo.js"></script>
-  <script src="/media/angular/services/teacher.js"></script>
-  <script src="/media/angular/controllers/UploadPhotoCtrl.js"></script>
-  <script src="/media/angular/controllers/GalleryCtrl.js"></script>
+<!-- Angular Material Library -->
+<script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.js"></script>
+
+<!-- Vendor libraries -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/danialfarid-angular-file-upload/12.2.13/ng-file-upload.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<!-- Angularific app -->
+<script src="/media/angular/app.js"></script>
+<script src="/media/angular/services/photo.js"></script>
+<script src="/media/angular/services/teacher.js"></script>
+<script src="/media/angular/services/comment.js"></script>
+<script src="/media/angular/controllers/UploadPhotoCtrl.js"></script>
+<script src="/media/angular/controllers/GalleryCtrl.js"></script>
+<script src="/media/angular/controllers/ProfileCtrl.js"></script>
 
 </body>
 

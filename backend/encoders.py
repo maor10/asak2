@@ -24,3 +24,15 @@ class TeacherEncoder(json.JSONEncoder):
             "id": teacher.id,
             "name": teacher.name
         }
+
+
+class CommentEncoder(json.JSONEncoder):
+
+    def default(self, comment):
+        return {
+            "id": comment.id,
+            "poster": comment.poster,
+            "text": comment.text,
+            "published": comment.published,
+            "teacher_id": comment.teacher_id
+        }

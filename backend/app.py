@@ -101,6 +101,11 @@ def teachers():
     return json.dumps(Teacher.query.all(), cls=TeacherEncoder)
 
 
+@app.route('/teachers/<id>', methods=['GET'])
+def get_teacher(id):
+    return json.dumps(Teacher.query.get(id), cls=TeacherEncoder)
+
+
 @app.route("/teachers", methods=['POST'])
 def create_teacher():
     if request.method == 'POST':
@@ -130,7 +135,17 @@ def create_comment():
             db.session.commit()
         else:
             abort(401, 'Teacher not found')
-    return json.dump(False)
+    return "success"
+
+
+@app.route('/comments', methods=['GET'])
+def comments_for_teacher():
+    try:
+        teacher_id = request.args["teacher_id"]
+    except KeyError:
+        abort(500, "You must have a teacher id")
+    teacher = Teacher.query.get(teacher_id)
+    return json.dumps(teacher.comments)
 
 
 @app.route("/login", methods=['POST'])
