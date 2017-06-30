@@ -33,7 +33,7 @@ app.controller('UploadPhotoCtrl', function($scope, Photo) {
      */
     this.toggleTeacher = function(teacherID) {
         if (_.includes(this.photo.teachers, teacherID)) {
-            this.photo.teachers.remove(teacherID);
+            this.photo.teachers.splice(this.photos.indexOf(teacherID), 1);
         } else {
             this.photo.teachers.push(teacherID);
         }
