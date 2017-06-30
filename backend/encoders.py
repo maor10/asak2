@@ -8,6 +8,7 @@ class PhotoEncoder(json.JSONEncoder):
         return {
             "id": photo.id,
             "src": photo.imgsrc,
+            "thumbnail": photo.thumbnail,
             "text": photo.text,
             "published": photo.published.ctime(),
             "teachers": [{
