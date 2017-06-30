@@ -81,7 +81,7 @@ class Photo(db.Model):
 class Track(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(256))
-    teachers = db.relationship('Teacher', backref='track', lazy='dynamic')
+    teachers = db.relationship('Teacher', backref='track')
 
 
 class Comment(db.Model):

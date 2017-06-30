@@ -24,7 +24,8 @@ class TeacherEncoder(json.JSONEncoder):
         return {
             "id": teacher.id,
             "name": teacher.name,
-            "track_id": teacher.track_id
+            "track_name": teacher.track.name,
+            "track_id": teacher.track.id
         }
 
 
