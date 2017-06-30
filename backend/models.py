@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 from flask_sqlalchemy import SQLAlchemy
 from hashlib import sha256
 from datetime import datetime
@@ -86,7 +88,13 @@ class Track(db.Model):
 
 class Comment(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    poster = db.Column(db.String(256))
+    poster = db.Column(db.String(256), default=u"יהלום אנונימי")
     text = db.Column(db.Text(1024))
     published = db.Column(db.DateTime(), default=datetime.now)
     teacher_id = db.Column(db.Integer, db.ForeignKey('teacher.id'))
+
+
+class ThankYouNote(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    text = db.Column(db.Text(1024))
+    published = db.Column(db.DateTime(), default=datetime.now)

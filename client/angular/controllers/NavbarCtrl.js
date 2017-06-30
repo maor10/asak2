@@ -16,6 +16,12 @@ app.controller('NavbarCtrl', function($scope, $route, $location) {
         this.isNavCollapsed = true;
         $location.url("/teachers");
     };
+
+    this.goToThanks = function() {
+        this.isNavCollapsed = true;
+        $location.url("/thanks");
+    };
+
 });
 
 

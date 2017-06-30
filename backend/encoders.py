@@ -50,3 +50,11 @@ class TrackEncoder(json.JSONEncoder):
             "id": track.id,
             "name": track.name
         }
+
+
+class ThankYouNoteEncoder(json.JSONEncoder):
+    def default(self, note):
+        return {
+            "published": note.published.ctime(),
+            "text": note.text
+        }

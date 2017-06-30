@@ -3,7 +3,7 @@
 }
 
 .photo-block{
-    width:inherit;
+    width: 300px;;
 }
 
 .track-select md-select-menu {
@@ -18,4 +18,61 @@
 
 a {
     cursor: pointer;
+}
+
+
+.sticky-note {
+    padding:25px 25px 40px;
+    width:230px;
+    height:250px;
+    line-height:1.5;
+    border:0;
+    font-family: 'David Libre', serif;
+    border-radius:3px;
+    background: linear-gradient(#F9EFAF, #F7E98D);
+    overflow:hidden;
+    transition:box-shadow 0.5s ease;
+    resize: none;
+}
+
+.sticky-note:hover {
+    box-shadow:0 5px 8px rgba(0,0,0,0.15);
+}
+
+.sticky-note:focus {
+    box-shadow:0 5px 12px rgba(0,0,0,0.2); outline:none;
+}
+
+.thanks-block {
+    width: inherit;
+    background: transparent;
+    border: none;
+}
+
+.notes {
+    list-style-type: none;
+}
+
+ul.notes li:nth-child(n) .sticky-note{
+    transform: rotate(-5deg);
+}
+
+ul.notes li:nth-child(2n) .sticky-note{
+    transform: rotate(3deg);
+}
+
+ul.notes li:nth-child(3n) .sticky-note{
+    transform: rotate(-3deg);
+}
+
+ul.notes li:nth-child(5n) .sticky-note{
+    transform: rotate(-2deg);
+}
+
+ul.notes li:nth-child(8n) .sticky-note{
+    transform: rotate(4.5deg);
+}
+
+ul.notes li:nth-child(11n) .sticky-note{
+    transform: rotate(5deg);
 }

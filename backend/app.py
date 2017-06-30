@@ -6,7 +6,7 @@ from flask import Flask, send_from_directory, request, session, abort
 from flask_uploads import configure_uploads, UploadNotAllowed
 
 import config
-from encoders import PhotoEncoder, TeacherEncoder, TrackEncoder, CommentEncoder
+from encoders import PhotoEncoder, TeacherEncoder, TrackEncoder, CommentEncoder, ThankYouNoteEncoder
 from load_initial_data import load_initial_data
 from models import *
 
@@ -150,7 +150,10 @@ def create_comment():
         comment_poster = data['poster']
         comment_text = data['text']
         if Teacher.query.get(teacher_id):
-            comment = Comment(teacher_id=teacher_id, poster=comment_poster, text=comment_text)
+            if comment_poster:
+                comment = Comment(teacher_id=teacher_id, poster=comment_poster, text=comment_text)
+            else:
+                comment = Comment(teacher_id=teacher_id, text=comment_text)
             db.session.add(comment)
             db.session.commit()
         else:
@@ -166,6 +169,22 @@ def comments_for_teacher():
         abort(500, "You must have a teacher id")
     teacher = Teacher.query.get(teacher_id)
     return json.dumps(teacher.comments, cls=CommentEncoder)
+
+
+@app.route('/thanks', methods=['POST'])
+def create_thank_you_note():
+    data = json.loads(request.data)
+    note_text = data['text']
+    note = ThankYouNote(text=note_text)
+    db.session.add(note)
+    db.session.commit()
+    return "success"
+
+
+@app.route('/thanks', methods=['GET'])
+def thank_you_notes():
+    return json.dumps(ThankYouNote.query.all(), cls=ThankYouNoteEncoder)
+
 
 
 @app.route("/login", methods=['POST'])

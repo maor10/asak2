@@ -11,6 +11,9 @@ app.controller('ProfileCtrl', function($scope, $routeParams, $timeout, Photo, Te
         loadTeacher($routeParams.id);
     }
 
+    vm.comments = Comment.query({teacher_id: $routeParams.id});
+
+
     /**
      * Represents users next comment
      */
@@ -23,6 +26,8 @@ app.controller('ProfileCtrl', function($scope, $routeParams, $timeout, Photo, Te
      * Sends a comment to the server
      */
     vm.sendComment = function() {
+        if (vm.comment.text === '')
+            return;
         var comment = new Comment({
             text: vm.comment.text,
             poster: vm.comment.poster,
@@ -57,7 +62,7 @@ app.controller('ProfileCtrl', function($scope, $routeParams, $timeout, Photo, Te
               });
           }
           $scope.intervalFunction();
-        }, 1000)
+        }, 10000)
       };
      $scope.intervalFunction();
 

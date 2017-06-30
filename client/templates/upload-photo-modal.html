@@ -8,9 +8,9 @@
         <div class="form-group">
             <label><b>הוסף מפקדים שהופיעו בתמונה</b></label>
             <hr/>
-            <span ng-repeat="teacher in upc.teachers track by $index">
-                                  <label>{{ teacher.name }}</label>
+            <span ng-repeat="teacher in upc.teachers track by $index" style="margin-left: 3px;">
                                   <md-checkbox ng-click="upc.toggleTeacher(teacher.id)"></md-checkbox>
+                                    <label>{{ teacher.name }}</label>
                             </span>
         </div>
         <div class="form-group">

@@ -14,6 +14,7 @@
     <link href="/media/css/asak/all.css" rel="stylesheet">
     <link href="/media/css/app/sweetalert.css" rel="stylesheet">
     <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=David+Libre|Secular+One|Suez+One" rel="stylesheet">
     <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css">
 
 </head>
@@ -38,6 +39,7 @@
                 <ul class="nav navbar-nav">
                     <li ng-class="{active: navbar.$route.current.activeTab == 'teachers'}"><a ng-click="navbar.goToTeachers()">מפקדים</a></li>
                     <li ng-class="{active: navbar.$route.current.activeTab == 'gallery'}"><a ng-click="navbar.goToGallery()">תמונות</a></li>
+                    <li ng-class="{active: navbar.$route.current.activeTab == 'thanks'}"><a ng-click="navbar.goToThanks()">תודות</a></li>
                 </ul>
             </div>
 	    </div>
@@ -74,7 +76,13 @@
 
     <!-- Footer -->
     <footer class="footer">
-        <strong>ותודה לnulled על זה שהcopyright לא מזיז לאף אחד</strong> v4.0.0 &copy; Copyright 2015
+
+        <span>
+        <a>
+            <strong>כל מיני זכויות שמורות לילדי הPC והיהלומים</strong>
+            <i class="fa fa-trophy"></i>
+        </a>
+        </span>
     </footer>
     <!-- // Footer -->
 
@@ -152,6 +160,8 @@
 <script src="/media/angular/services/teacher.js"></script>
 <script src="/media/angular/services/track.js"></script>
 <script src="/media/angular/services/comment.js"></script>
+<script src="/media/angular/services/thankyounote.js"></script>
+
 
 <script src="/media/angular/directives/teacherFilter.js"></script>
 
@@ -161,6 +171,8 @@
 <script src="/media/angular/controllers/ProfileCtrl.js"></script>
 <script src="/media/angular/controllers/TeachersCtrl.js"></script>
 <script src="/media/angular/controllers/NavbarCtrl.js"></script>
+<script src="/media/angular/controllers/ThanksCtrl.js"></script>
+
 
 </body>
 

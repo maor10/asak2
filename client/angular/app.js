@@ -16,6 +16,11 @@ var app = angular.module("asak", ['ngRoute', 'ngResource', 'ngFileUpload', 'ngMa
                 controller: "ProfileCtrl as profile",
                 templateUrl: "/media/templates/teacher-profile.html",
                 activeTab: "teachers"
+            })
+            .when('/thanks', {
+                controller: "ThanksCtrl as thanks",
+                templateUrl: "/media/templates/thanks.html",
+                activeTab: "thanks"
             });
     }
 );

@@ -1,0 +1,31 @@
+<div class="panel panel-default">
+    <div class="panel-body">
+        <form class="form">
+            <label for="comment">השארת פתק</label>
+            <div class="form-group">
+                <textarea class="form-control" id="comment" ng-model="thanks.note.text" rows="2" placeholder="תודה למשה על העזרה בע״ע"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary" ng-click="thanks.sendNote()">שלח</button>
+        </form>
+    </div>
+</div>
+
+
+
+<div class="row" data-toggle="isotope">
+    <ul class="notes">
+    <li class="col-xs-12 col-md-6 col-lg-4 item" style="width: inherit;" ng-repeat="note in thanks.notes">
+        <div class="panel panel-default share clearfix-xs thanks-block">
+            <div class="panel-body">
+                <div class="sticky-note">
+                    <div class="pull-left">{{ note.published }}</div>
+                    <div><span class="md-display-1">תודה ל</span></div>
+                    <div class="md-body-2">
+                        {{ note.text }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </li>
+    </ul>
+</div>
