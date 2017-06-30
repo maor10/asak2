@@ -3,7 +3,7 @@
  */
 app.factory('Photo', function ($resource, Upload) {
 
-    var Photo = $resource("/phostos/:id");
+    var Photo = $resource("/photos/:id");
 
     /**
      * Uploads a photo to the server

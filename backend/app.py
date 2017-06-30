@@ -78,7 +78,7 @@ def asak():
 def photos():
     args = request.args
     if 'teacher_id' in args:
-        return json.dumps(Teacher.query.get(int(args['teacher_id'])), cls=PhotoEncoder)
+        return json.dumps(Teacher.query.get(int(args['teacher_id'])).photos, cls=PhotoEncoder)
     elif 'track_id' in args:
         teachers = Teacher.query.filter_by(track_id=int(args['track_id']).all())
         photos = reduce(lambda x, y: x + y, [teacher.photos for teacher in teachers])

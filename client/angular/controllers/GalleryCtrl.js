@@ -10,6 +10,7 @@ app.controller('GalleryCtrl', function($scope, Photo, Teacher) {
      * Opens modal allowing user to upload a photo
      */
     this.openUploadPhotoModal = function() {
+        alert("opening");
         $("#uploadPhotoModal").modal("show");
     }
 
