@@ -1,35 +1,31 @@
-<div ng-controller="UploadPhotoCtrl as upc" ng-init="upc.setParent(gallery)">
-    <div class="modal fade" tabindex="-1" role="dialog" id="uploadPhotoModal" aria-labelledby="uploadPhotoLabel">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title">העלה תמונה</h4>
-          </div>
-          <div class="modal-body">
-              <form>
-                  <div class="form-group">
-                      <label>מפקדים</label>
-                      <div ng-repeat="teacher in gallery.teachers track by $index">
-                          <label>{{ teacher.name }}</label>
-                          <md-checkbox ng-click="upc.toggleTeacher(teacher.id)"></md-checkbox>
-                      </div>
-                  </div>
-                    <div class="form-group">
-                     <label for="photo-caption" >טקסט לתמונה</label>
-                     <textarea class="form-control" ng-model="upc.photo.text" id="photo-caption" rows="3"></textarea>
-                    </div>
-                    <div class="form-group">
-                      <label for="photo">תמונה</label>
-                      <input type="file" class="form-control-file" ngf-select ng-model="upc.photo.file" id="photo" aria-describedby="fileHelp">
-                    </div>
-              </form>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary" ng-click="upc.uploadPhoto()" >Save changes</button>
-          </div>
-        </div><!-- /.modal-content -->
-      </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+            aria-hidden="true">&times;</span></button>
+    <h4 class="modal-title" id="modal-title">העלה תמונה</h4>
+</div>
+<div class="modal-body" id="modal-body">
+    <form>
+        <div class="form-group">
+            <label><b>הוסף מפקדים שהופיעו בתמונה</b></label>
+            <hr/>
+            <span ng-repeat="teacher in upc.teachers track by $index">
+                                  <label>{{ teacher.name }}</label>
+                                  <md-checkbox ng-click="upc.toggleTeacher(teacher.id)"></md-checkbox>
+                            </span>
+        </div>
+        <div class="form-group">
+            <label for="photo-caption">טקסט לתמונה</label>
+            <textarea class="form-control" ng-model="upc.photo.text" id="photo-caption"
+                      rows="3"></textarea>
+        </div>
+        <div class="form-group">
+            <label for="photo">תמונה</label>
+            <input type="file" class="form-control-file" ngf-select ng-model="upc.photo.file" id="photo"
+                   aria-describedby="fileHelp">
+        </div>
+    </form>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-default" ng-click="upc.cancel()">סגור</button>
+    <button type="button" class="btn btn-primary" ng-click="upc.uploadPhoto()">העלה</button>
 </div>

@@ -1,0 +1,31 @@
+<div id="filter">
+    {{ filter.text }}
+    <div class="row">
+        <div ng-if="filter.tracks.length > 0">
+            <md-input-container>
+                <label>בחר מגמה לחיפוש</label>
+                <md-select md-container-class="track-select" ng-model="filter.selectedTrackID" ng-change="filter.filterTeachers()">
+                    <md-option ng-value="-1"> כולם </md-option>
+                    <md-option ng-value="track.id" ng-repeat="track in filter.tracks">{{ track.name }}</md-option>
+                </md-select>
+            </md-input-container>
+        </div>
+        <div>
+            <md-autocomplete md-selected-item="filter.selectedTeacher"
+                             md-search-text="filter.searchText"
+                             md-items="item in filter.getMatchingTeachers(teachers.searchText)"
+                             md-item-text="item.name"
+                             md-selected-item-change="filter.selectTeacher(item)"
+                             md-min-length="0"
+                             placeholder="שם מפקד"
+                            md-no-cache="true">
+                <md-item-template>
+                    <span md-highlight-text="searchText">{{ item.name }}</span>
+                </md-item-template>
+                <md-not-found>
+                    יאהבל אתה בשבוע 11 ואתה עדיין לא מכיר שמות של מפקדים?!
+                </md-not-found>
+            </md-autocomplete>
+        </div>
+    </div>
+</div>

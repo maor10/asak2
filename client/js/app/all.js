@@ -1,4 +1,12 @@
+
+
 (function ($) {
+     $(function(){
+         var navMain = $("#main-nav");
+         navMain.on("click", "a", null, function () {
+             navMain.collapse('hide');
+         });
+     });
 
     // Find all YouTube videos
     var $allVideos = $("iframe[src^='http://player.vimeo.com'], iframe[src^='http://www.youtube.com']"),

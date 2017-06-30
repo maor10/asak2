@@ -1,8 +1,7 @@
-<div ng-include="'/media/templates/upload-photo-modal.html'"></div>
+<teacher-filter teachers="gallery.teachers" tracks="gallery.tracks" on-filter="gallery.onFilter(filteredTeachers)"></teacher-filter>
 
-
-<div class="row" data-toggle="isotope">
-    <div class="col-xs-12 col-md-6 col-lg-4 item photo-block" ng-repeat="photo in gallery.photos">
+<div class="row" data-toggle="isotope" style="text-align:center">
+    <div class="col-xs-12 col-md-6 col-lg-4 item photo-block" ng-repeat="photo in gallery.filteredPhotos">
         <div class="panel panel-default relative">
             <img ng-src="{{ photo.thumbnail }}" alt="place" class="img-responsive">
             <div class="panel-body">
@@ -20,7 +19,7 @@
 
 
 
-<button style="background-color: #26a69a" class="md-fab md-fab-bottom-right docs-scroll-fab md-button md-ink-ripple scrolling" type="button"
+<button style="position: fixed !important; background-color: #26a69a; bottom: 60px; right: 30px" class="md-fab md-fab-bottom-right docs-scroll-fab md-button md-ink-ripple scrolling" type="button"
         docs-scroll-class="scrolling" ng-click="gallery.openUploadPhotoModal()">
 
     <md-icon style="color: white" md-svg-src="/media/images/add_photo.svg" class="ng-scope" role="img" aria-hidden="true">

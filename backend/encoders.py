@@ -1,5 +1,6 @@
 import json
 from sqlalchemy.ext.declarative import DeclarativeMeta
+from models import *
 
 
 class PhotoEncoder(json.JSONEncoder):
@@ -25,7 +26,8 @@ class TeacherEncoder(json.JSONEncoder):
             "id": teacher.id,
             "name": teacher.name,
             "track_name": teacher.track.name,
-            "track_id": teacher.track.id
+            "track_id": teacher.track.id,
+            "photo_count": Teacher.query.join(Teacher.photos).filter(Teacher.id == teacher.id).count()
         }
 
 

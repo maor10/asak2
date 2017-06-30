@@ -1,44 +1,21 @@
 /**
  * Represents the teachers controller
  */
-app.controller('TeachersCtrl', function($scope, $location, Track, Teacher) {
+app.controller('TeachersCtrl', function($scope, $location, Teacher) {
 
-    this.tracks = Track.query();
-    this.teachers = Teacher.query();
+    var vm = this;
 
-    /**
-     * Teachers displayed
-     */
-    this.filteredTeachers = this.teachers;
+    vm.teacher = teacher;
+    vm.teachers = Teacher.query();
 
-
-    /**
-     * Select a track to filter by
-     */
-    this.selectTrack = function () {
-        this.filteredTeachers = this.filteredTeachers.filter(function (teacher) {
-            return teacher.track_id = this.selectedTrackID;
-        });
+    vm.onFilter = function (filteredTeachers) {
+        vm.teachers = filteredTeachers;
     };
 
-    /**
-     * Gets matching teachers by teacher name
-     */
-    this.getMatchingTeachers = function(searchText) {
-        return this.filteredTeachers.filter(function (teacher) {
-            return teacher.name.indexOf(searchText) > -1;
-        });
+    vm.onSelectTeacher = function(teacher) {
+        vm.teacher = teacher;
     };
 
-    function filterTeachers() {
-        /*this.filteredTeachers = this.teachers.filter(function (teacher) {
-            if (this.selectedTrackID > 0 && teacher.track_id !== this.selectedTrackID) {
-                 return false;
-            } else {
-                return this.
-            }
-        });*/
-    };
 
 });
 

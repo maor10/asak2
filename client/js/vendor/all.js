@@ -85700,7 +85700,7 @@ $.ui.fancytree.registerExtension({
 }(jQuery, window, document));
 
 /*!
- * jquery.fancytree.filter.js
+ * jquery.fancytree.filterByTeacherAndTrack.js
  *
  * Remove or highlight tree nodes, based on a filter.
  * (Extension module for jquery.fancytree.js: https://github.com/mar10/fancytree/)

@@ -7,11 +7,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>ThemeKit</title>
+    <title>ASAKKK</title>
 
     <link href="/media/css/vendor/all.css" rel="stylesheet">
     <link href="/media/css/app/app.css" rel="stylesheet">
     <link href="/media/css/asak/all.css" rel="stylesheet">
+    <link href="/media/css/app/sweetalert.css" rel="stylesheet">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
     <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css">
 
 </head>
@@ -21,38 +23,25 @@
 <!-- Wrapper required for sidebar transitions -->
 <div class="st-container">
 
-    <!-- Fixed navbar -->
-    <div class="navbar navbar-main navbar-primary navbar-fixed-top" role="navigation">
-        <div class="container">
+    <div ng-controller="NavbarCtrl as navbar">
+        <div class="navbar navbar-main navbar-primary navbar-fixed-top" role="navigation">
             <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-nav">
+                <button type="button" class="navbar-toggle" ng-click="navbar.isNavCollapsed = !navbar.isNavCollapsed">
                     <span class="sr-only">Toggle navigation</span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a href="#sidebar-chat" data-toggle="sidebar-menu" class="toggle pull-right visible-xs"><i class="fa fa-comments"></i></a>
-                <a class="navbar-brand" href="index.html">Asak</a>
+                <a class="navbar-brand" href="#">ASAKKKK</a>
             </div>
-
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="main-nav">
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="/teachers">מפקדים</a></li>
-                    <li><a href="/gallery">תמונות</a></li>
-                    <li><a href="/messages">צאט</a></li>
-                    <li class="hidden-xs">
-                        <a href="#sidebar-chat" data-toggle="sidebar-menu">
-                            <i class="fa fa-comments"></i>
-                        </a>
-                    </li>
+            <div class="collapse navbar-collapse" uib-collapse="navbar.isNavCollapsed">
+                <ul class="nav navbar-nav">
+                    <li ng-class="{active: navbar.$route.current.activeTab == 'teachers'}"><a ng-click="navbar.goToTeachers()">מפקדים</a></li>
+                    <li ng-class="{active: navbar.$route.current.activeTab == 'gallery'}"><a ng-click="navbar.goToGallery()">תמונות</a></li>
                 </ul>
-
             </div>
-            <!-- /.navbar-collapse -->
-        </div>
+	    </div>
     </div>
-
 
     <!-- sidebar effects OUTSIDE of st-pusher: -->
     <!-- st-effect-1, st-effect-2, st-effect-4, st-effect-5, st-effect-9, st-effect-10, st-effect-11, st-effect-12, st-effect-13 -->
@@ -85,7 +74,7 @@
 
     <!-- Footer -->
     <footer class="footer">
-        <strong>ThemeKit עשו קצת דברים</strong> v4.0.0 &copy; Copyright 2015
+        <strong>ותודה לnulled על זה שהcopyright לא מזיז לאף אחד</strong> v4.0.0 &copy; Copyright 2015
     </footer>
     <!-- // Footer -->
 
@@ -132,34 +121,46 @@
     };
 </script>
 
+
+
 <!-- Angular libraries -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular-route.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular-resource.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-touch/1.6.1/angular-touch.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-aria.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.5.0/ui-bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.5.0/ui-bootstrap-tpls.min.js"></script>
 
 <!-- Angular Material Library -->
 <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.js"></script>
 
 <!-- Vendor libraries -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/danialfarid-angular-file-upload/12.2.13/ng-file-upload.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<script src="/media/js/vendor/sweetalert.min.js"></script>
+
 
 <!-- Angularific app -->
 <script src="/media/angular/app.js"></script>
+
 <script src="/media/angular/services/photo.js"></script>
 <script src="/media/angular/services/teacher.js"></script>
 <script src="/media/angular/services/track.js"></script>
 <script src="/media/angular/services/comment.js"></script>
+
+<script src="/media/angular/directives/teacherFilter.js"></script>
+
+<script src="/media/angular/controllers/FilterTeachersCtrl.js"></script>
 <script src="/media/angular/controllers/UploadPhotoCtrl.js"></script>
 <script src="/media/angular/controllers/GalleryCtrl.js"></script>
 <script src="/media/angular/controllers/ProfileCtrl.js"></script>
 <script src="/media/angular/controllers/TeachersCtrl.js"></script>
+<script src="/media/angular/controllers/NavbarCtrl.js"></script>
 
 </body>
 

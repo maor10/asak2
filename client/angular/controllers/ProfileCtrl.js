@@ -1,16 +1,20 @@
 /**
  * Represents the gallery controller
  */
-app.controller('ProfileCtrl', function($scope, $routeParams, Photo, Teacher, Comment) {
+app.controller('ProfileCtrl', function($scope, $routeParams, $timeout, Photo, Teacher, Comment) {
 
-    this.teacher = Teacher.get({teacherID: $routeParams.id});
-    this.photos = Photo.query({teacher_id: $routeParams.id});
-    this.comments = Comment.query({teacher_id: $routeParams.id});
+    var vm = this;
+
+    vm.teachers = Teacher.query();
+
+    if ($routeParams.hasOwnProperty("id")) {
+        loadTeacher($routeParams.id);
+    }
 
     /**
      * Represents users next comment
      */
-    this.comment = {
+    vm.comment = {
         text: "",
         poster: ""
     };
@@ -18,16 +22,44 @@ app.controller('ProfileCtrl', function($scope, $routeParams, Photo, Teacher, Com
     /**
      * Sends a comment to the server
      */
-    this.sendComment = function() {
+    vm.sendComment = function() {
         var comment = new Comment({
-            text: this.comment.text,
-            poster: this.comment.poster,
-            teacher_id: this.teacher.id
+            text: vm.comment.text,
+            poster: vm.comment.poster,
+            teacher_id: vm.teacher.id
         });
         comment.$save();
-        this.comments = Comment.query({teacher_id: $routeParams.id});
-        this.comment.text = "";
+        vm.comments = Comment.query({teacher_id: $routeParams.id});
+        vm.comment.text = "";
+    };
+
+
+    this.onSelectTeacher = function (teacher) {
+        vm.teacher = teacher;
+        vm.photos = Photo.query({teacher_id: teacher.id});
+    };
+
+
+    /**
+     * Loads a teacher from an id
+     * @param teacher_id
+     */
+    function loadTeacher(teacher_id) {
+        vm.teacher = Teacher.get({teacherID: teacher_id});
+        vm.photos = Photo.query({teacher_id: teacher_id});
     }
+
+    $scope.intervalFunction = function(){
+        $timeout(function() {
+          if (vm.teacher !== undefined) {
+              Comment.query({teacher_id: vm.teacher.id}, function(data) {
+                  vm.comments = data;
+              });
+          }
+          $scope.intervalFunction();
+        }, 1000)
+      };
+     $scope.intervalFunction();
 
 });
 

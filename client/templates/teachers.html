@@ -1,44 +1,72 @@
-<div id="filter">
-    <div class="row">
-        <div>
-            <md-input-container>
-                <label>בחר מגמה</label>
-                <md-select ng-model="teachers.selectedTrackID" md-on-close="teachers.selectTrack()">
-                    <md-option ng-value="track.id" ng-repeat="track in teachers.tracks">{{ track.name }}</md-option>
-                </md-select>
-            </md-input-container>
+<teacher-filter
+        teachers="teachers.teachers"
+        on-filter="teachers.onFilter(filteredTeachers)">
+</teacher-filter>
+
+<div ng-controller="ProfileCtrl as profile">
+    <div class="panel panel-default">
+    <div class="panel-body">
+        <div class="row">
+        <div class="panel-heading panel-heading-gray">
+            <h1>{{ profile.teacher.name }}<small>{{ profile.teacher.track_name }}</small></h1>
         </div>
-        <div>
-            <md-autocomplete md-selected-item="teachers.selectedTeacher"
-                             md-search-text="teachers.searchText"
-                             md-items="teacher in teachers.getMatchingTeachers(teachers.searchText)"
-                             md-item-text="teacher.name"
-                            md-no-cache="true">
-                <md-item-template>
-                    <span md-highlight-text="teachers.searchText">{{teacher.name}}</span>
-                </md-item-template>
-                <md-not-found>
-                    No matches found.
-                </md-not-found>
-            </md-autocomplete>
         </div>
     </div>
-</div>
+    </div>
 
-<div class="row">
-    <div class="col-md-6 col-lg-4 item" ng-repeat="teacher in teachers.teachers">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <div class="media">
-                    <div class="pull-left">
-                        <img src="images/people/50/guy-2.jpg" alt="people" class="media-object img-circle">
-                    </div>
-                    <div class="media-body">
-                        <h4 class="media-heading margin-v-5"><a href="asak#!/teachers/{{ teacher.id }}">{{ teacher.name }}</a></h4>
-                        <div class="profile-icons">
-                            <span><i class="fa fa-users"></i> 372</span>
-                            <span><i class="fa fa-photo"></i> 43</span>
-                            <span><i class="fa fa-video-camera"></i> 3</span>
+    <div class="panel panel-default">
+        <div class="panel-heading panel-heading-gray">
+            <i class="fa fa-bookmark"></i> הכותל
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <ul class="comments">
+                    <li class="media" ng-repeat="comment in profile.comments">
+                        <div class="media-left">
+                            <a href="">
+                                <img src="images/asak/diamond.png" class="media-object">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a href="" class="comment-author pull-right">{{ comment.poster }}:</a>
+                            <span>{{ comment.text }}</span>
+                            <div class="comment-date">{{ comment.published }}</div>
+                        </div>
+                    </li>
+                    <li class="comment-form">
+                        <form class="form">
+                            <label for="comment">השארת פתק</label>
+                            <div class="form-group">
+                                <input type="text" class="form-control" ng-model="profile.comment.poster" id="poster" placeholder="שם(אופציונאלי)">
+                                <textarea class="form-control" id="comment" ng-model="profile.comment.text" rows="2" placeholder="תגובה"></textarea>
+                                <small id="emailHelp" class="form-text text-muted">כדי שבכל זאת נוכל להינות מהאתר ומהאסק, תהיו חכמים ותחשבו לפני שאתם כותבים. &hearts;</small>
+                            </div>
+                            <button type="submit" class="btn btn-primary" ng-click="profile.sendComment()">שלח</button>
+                        </form>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading panel-heading-gray">
+            <i class="fa fa-bookmark"></i> תמונות
+        </div>
+
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-xs-12 col-md-6 col-lg-4 item photo-block" ng-repeat="photo in profile.photos">
+                    <div class="panel panel-default relative">
+                        <img ng-src="{{ photo.thumbnail }}" alt="place" class="img-responsive">
+                        <div class="panel-body">
+                            <span>{{ photo.text }}</span>
+                            <hr/>
+                            <div>
+                                <a ng-repeat="teacher in photo.teachers" href="#" class="btn btn-primary btn-xs teacher-tag">
+                                    #{{ teacher.name }}
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>

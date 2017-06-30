@@ -1,65 +1,72 @@
-<div class="panel panel-default">
-<div class="panel-body">
-    <div class="row">
-    <div class="panel-heading panel-heading-gray">
-        <h1>{{ profile.teacher.name }}<small>{{ profile.teacher.track_name }}</small></h1>
-    </div>
-    </div>
-</div>
-</div>
+<teacher-filter
+        teachers="profile.teachers"
+        on-select-teacher="profile.onSelectTeacher(teacher)">
+</teacher-filter>
 
-<div class="panel panel-default">
-    <div class="panel-heading panel-heading-gray">
-        <i class="fa fa-bookmark"></i> הכותל
-    </div>
+<div ng-show="profile.teacher != undefined" >
+    <div class="panel panel-default">
     <div class="panel-body">
         <div class="row">
-            <ul class="comments">
-                <li class="media" ng-repeat="comment in profile.comments">
-                    <div class="media-left">
-                        <a href="">
-                            <img src="images/asak/diamond.png" class="media-object">
-                        </a>
-                    </div>
-                    <div class="media-body">
-                        <a href="" class="comment-author pull-right">{{ comment.poster }}:</a>
-                        <span>{{ comment.text }}</span>
-                        <div class="comment-date">{{ comment.published }}</div>
-                    </div>
-                </li>
-                <li class="comment-form">
-                    <form class="form">
-                        <label for="comment">השארת פתק</label>
-                        <div class="form-group">
-                            <input type="text" class="form-control" ng-model="profile.comment.poster" id="poster" placeholder="שם(אופציונאלי)">
-                            <textarea class="form-control" id="comment" ng-model="profile.comment.text" rows="2" placeholder="תגובה"></textarea>
-                            <small id="emailHelp" class="form-text text-muted">כדי שבכל זאת נוכל להינות מהאתר ומהאסק, תהיו חכמים ותחשבו לפני שאתם כותבים. &hearts;</small>
-                        </div>
-                        <button type="submit" class="btn btn-primary" ng-click="profile.sendComment()">שלח</button>
-                    </form>
-                </li>
-            </ul>
+        <div class="panel-heading panel-heading-gray">
+            <h1>{{ profile.teacher.name }}<small class="pull-left">{{ profile.teacher.track_name }}</small></h1>
+        </div>
         </div>
     </div>
-</div>
-
-<div class="panel panel-default">
-    <div class="panel-heading panel-heading-gray">
-        <i class="fa fa-bookmark"></i> תמונות
     </div>
 
-    <div class="panel-body">
-        <div class="row">
-            <div class="col-xs-12 col-md-6 col-lg-4 item photo-block" ng-repeat="photo in profile.photos">
-                <div class="panel panel-default relative">
-                    <img ng-src="{{ photo.thumbnail }}" alt="place" class="img-responsive">
-                    <div class="panel-body">
-                        <span>{{ photo.text }}</span>
-                        <hr/>
-                        <div>
-                            <a ng-repeat="teacher in photo.teachers" href="#" class="btn btn-primary btn-xs teacher-tag">
-                                #{{ teacher.name }}
+    <div class="panel panel-default" ng-cloak>
+        <div class="panel-heading panel-heading-gray">
+            <i class="fa fa-bookmark"></i> הכותל
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <ul class="comments">
+                    <li class="media" ng-repeat="comment in profile.comments">
+                        <div class="media-left">
+                            <a href="">
+                                <img src="images/asak/diamond.png" class="media-object">
                             </a>
+                        </div>
+                        <div class="media-body">
+                            <a href="" class="comment-author pull-right">{{ comment.poster }}:</a>
+                            <span>{{ comment.text }}</span>
+                            <div class="comment-date">{{ comment.published }}</div>
+                        </div>
+                    </li>
+                    <li class="comment-form">
+                        <form class="form">
+                            <label for="comment">השארת פתק</label>
+                            <div class="form-group">
+                                <input type="text" class="form-control" ng-model="profile.comment.poster" id="poster" placeholder="שם(אופציונאלי)">
+                                <textarea class="form-control" id="comment" ng-model="profile.comment.text" rows="2" placeholder="תגובה"></textarea>
+                                <small id="emailHelp" class="form-text text-muted">כדי שבכל זאת נוכל להינות מהאתר ומהאסק, תהיו חכמים ותחשבו לפני שאתם כותבים. &hearts;</small>
+                            </div>
+                            <button type="submit" class="btn btn-primary" ng-click="profile.sendComment()">שלח</button>
+                        </form>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading panel-heading-gray">
+            <i class="fa fa-bookmark"></i> תמונות
+        </div>
+
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-xs-12 col-md-6 col-lg-4 item photo-block" ng-repeat="photo in profile.photos">
+                    <div class="panel panel-default relative">
+                        <img ng-src="{{ photo.thumbnail }}" alt="place" class="img-responsive">
+                        <div class="panel-body">
+                            <span>{{ photo.text }}</span>
+                            <hr/>
+                            <div>
+                                <a ng-repeat="teacher in photo.teachers" href="#" class="btn btn-primary btn-xs teacher-tag">
+                                    #{{ teacher.name }}
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -67,4 +74,3 @@
         </div>
     </div>
 </div>
-

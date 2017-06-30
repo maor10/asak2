@@ -1,41 +1,52 @@
 /**
  * Upload photo controller
  */
-app.controller('UploadPhotoCtrl', function($scope, Photo) {
+app.controller('UploadPhotoCtrl', function($scope, $uibModalInstance, Teacher, Photo, teachers) {
 
+    var vm = this;
+
+    vm.$onInit = function () {
+      vm.teachers = teachers;
+    };
 
     /**
      * Photo object being created
      */
-    this.photo = {
+    vm.photo = {
         text: "",
         teachers: []
     };
 
+
     /**
      * Uploads a photo to the server
      */
-    this.uploadPhoto = function() {
-        $("#uploadPhotoModal").modal("hide");
-
-        Photo.upload(this.photo.file, this.photo.text, this.photo.teachers, function(resp) {
-            swal("Uploaded!", "Photo uploaded successfully!", "success");
+    vm.uploadPhoto = function() {
+        $uibModalInstance.close();
+        Photo.upload(vm.photo.file, vm.photo.text, vm.photo.teachers, function(resp) {
+            swal("הושלם!", "ארני גאה בך!", "success");
         }, function (resp) {
             console.log('Error status: ' + resp.status);
-            swal("Error!", resp, "error");
+            swal("כושלה!", "יכשלון... כמה האתר כבר קשה לשימוש?!", "error");
         });
+    };
 
+    /**
+     * Dismiss modal
+     */
+    vm.cancel = function() {
+        $uibModalInstance.dismiss();
     };
 
     /**
      * Toggle teacher in photo.teachers
      * @param teacherID
      */
-    this.toggleTeacher = function(teacherID) {
-        if (_.includes(this.photo.teachers, teacherID)) {
-            this.photo.teachers.splice(this.photos.indexOf(teacherID), 1);
+    vm.toggleTeacher = function(teacherID) {
+        if (_.includes(vm.photo.teachers, teacherID)) {
+            vm.photo.teachers.splice(vm.photo.teachers.indexOf(teacherID), 1);
         } else {
-            this.photo.teachers.push(teacherID);
+            vm.photo.teachers.push(teacherID);
         }
     };
 

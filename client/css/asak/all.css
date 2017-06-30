@@ -6,3 +6,16 @@
     width:inherit;
 }
 
+.track-select md-select-menu {
+  margin-top: 45px;
+}
+
+.add-picture {
+    position: fixed !important;
+    background-color: #26a69a;
+    bottom: 55px;
+}
+
+a {
+    cursor: pointer;
+}

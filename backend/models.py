@@ -47,7 +47,7 @@ photos_teachers = db.Table('photos_teachers',
 
 class Teacher(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.Text(80), unique=True)
+    name = db.Column(db.Text(80))
     track_id = db.Column(db.Integer, db.ForeignKey('track.id'))
     comments = db.relationship('Comment', backref="teacher")
 
