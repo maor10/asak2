@@ -6,7 +6,7 @@ from flask import Flask, send_from_directory, request, session, abort
 from flask_uploads import configure_uploads, UploadNotAllowed
 
 import config
-from encoders import PhotoEncoder, TeacherEncoder
+from encoders import PhotoEncoder, TeacherEncoder, TrackEncoder, CommentEncoder
 from load_initial_data import load_initial_data
 from models import *
 
@@ -72,6 +72,11 @@ def landing_page():
 @app.route('/asak')
 def asak():
     return _send_template("index.html")
+
+
+@app.route('/tracks', methods=['GET'])
+def tracks():
+    return json.dumps(Track.query.all(), cls=TrackEncoder)
 
 
 @app.route('/photos', methods=['GET'])

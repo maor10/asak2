@@ -6,6 +6,10 @@ var app = angular.module("asak", ['ngRoute', 'ngResource', 'ngFileUpload', 'ngMa
                 controller: "GalleryCtrl as gallery",
                 templateUrl: "/media/templates/gallery.html"
             })
+            .when('/teachers', {
+                controller: "TeachersCtrl as teachers",
+                templateUrl: "/media/templates/teachers.html"
+            })
             .when('/teacher/:id', {
                 controller: "ProfileCtrl as profile",
                 templateUrl: "/media/templates/teacher-profile.html"

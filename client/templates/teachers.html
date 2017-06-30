@@ -1,0 +1,26 @@
+<div id="filter">
+    <div class="row">
+        <div>
+            <md-input-container>
+                <label>בחר מגמה</label>
+                <md-select ng-model="teachers.selectedTrackID" md-on-close="teachers.selectTrack()">
+                    <md-option ng-value="track.id" ng-repeat="track in teachers.tracks">{{ track.name }}</md-option>
+                </md-select>
+            </md-input-container>
+        </div>
+        <div>
+            <md-autocomplete md-selected-item="teachers.selectedTeacher"
+                             md-search-text="teachers.searchText"
+                             md-items="teacher in teachers.getMatchingTeachers(teachers.searchText)"
+                             md-item-text="teacher.name">
+                <md-item-template>
+                    <span md-highlight-text="teachers.searchText">{{teacher.name}}</span>
+                </md-item-template>
+                <md-not-found>
+                    No matches found.
+                </md-not-found>
+            </md-autocomplete>
+        </div>
+    </div>
+</div>
+
