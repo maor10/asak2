@@ -89,3 +89,20 @@ ul.notes li:nth-child(11n) .sticky-note{
 .logo:hover:after{
     content:'-מאפינס';
 }
+
+md-chips.rtl .md-chips md-chip {
+  float: right;
+}
+md-chips.rtl .md-chips md-chip ._md-chip-remove-container {
+  right: initial;
+  left: 4px;
+}
+md-chips.rtl .md-chips md-chip:not(.md-readonly) ._md-chip-content {
+  margin-left: 24px;
+}
+md-chips.rtl ._md-chip-input-container {
+  float: right;
+}
+md-chips.rtl ._md-chip-input-container input {
+  direction: rtl;
+}

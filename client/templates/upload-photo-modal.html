@@ -5,6 +5,7 @@
 </div>
 <div class="modal-body" id="modal-body">
     <form>
+        <!--
         <div class="form-group">
             <label><b>הוסף מפקדים שהופיעו בתמונה</b></label>
             <hr/>
@@ -12,7 +13,29 @@
                                   <md-checkbox ng-click="upc.toggleTeacher(teacher.id)"></md-checkbox>
                                     <label>{{ teacher.name }}</label>
                             </span>
-        </div>
+        </div>-->
+        {{ upc.searchText }}
+        {{ upc.QuerySearchTeachers(upc.searchText) }}
+    <md-chips class="rtl" ng-model="upc.photo.teachers" md-autocomplete-snap
+              md-transform-chip="upc.transformChip($chip)"
+              md-require-match="upc.autocompleteRequireMatch">
+      <md-autocomplete
+          md-selected-item="upc.selectedItem"
+          md-search-text="upc.searchText"
+          md-items="teacher_opt upc.QuerySearchTeachers(upc.searchText"
+          md-item-text="teacher_opt.name"
+          placeholder="Search for a user">
+        <span md-highlight-text="searchText">{{teacher_opt.name}}</span>
+      </md-autocomplete>
+      <md-chip-template dir="auto">
+        <span>
+          <strong>{{$chip}}</strong>
+          <em>({{$chip.track_name}})</em>
+        </span>
+      </md-chip-template>
+    </md-chips>
+
+
         <div class="form-group">
             <label for="photo-caption">טקסט לתמונה</label>
             <textarea class="form-control" ng-model="upc.photo.text" id="photo-caption"

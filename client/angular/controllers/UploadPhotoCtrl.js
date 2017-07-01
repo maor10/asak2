@@ -50,4 +50,36 @@ app.controller('UploadPhotoCtrl', function($scope, $uibModalInstance, Teacher, P
         }
     };
 
+
+    // ----------------FROM HERE IS FOR CHIPS --------------//
+    /**
+     * Return the proper object when the append is called.
+     */
+    vm.transformChip = function transformChip(chip) {
+      // If it is an object, it's already a known chip
+        return chip.id;
+      };
+
+    vm.autocompleteRequireMatch = true;
+    vm.selectedItem = null;
+    vm.searchText = null;
+
+    /**
+     * Search for teachers.
+     */
+    vm.QuerySearchTeachers = function querySearch (query) {
+      var results = query ? vm.teachers.filter(vm.CreateFilterForTeacher(query)) : [];
+      return results;
+    };
+
+    /**
+     * Create filter function for a query string
+     */
+    vm.CreateFilterForTeacher = function createFilterFor(query) {
+      return function filterFn(teacher) {
+        return (teacher.name.indexOf(query) !== -1);
+      };
+
+    };
+
 });
