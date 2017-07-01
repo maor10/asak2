@@ -3,6 +3,10 @@ from sqlalchemy.ext.declarative import DeclarativeMeta
 from models import *
 
 
+def format_date(datetimeobj):
+    return datetimeobj.strftime("%d/%m/%y %H:%M")
+
+
 class PhotoEncoder(json.JSONEncoder):
 
     def default(self, photo):
@@ -38,7 +42,7 @@ class CommentEncoder(json.JSONEncoder):
             "id": comment.id,
             "poster": comment.poster,
             "text": comment.text,
-            "published": comment.published.ctime(),
+            "published": format_date(comment.published),
             "teacher_id": comment.teacher_id
         }
 
@@ -55,6 +59,6 @@ class TrackEncoder(json.JSONEncoder):
 class ThankYouNoteEncoder(json.JSONEncoder):
     def default(self, note):
         return {
-            "published": note.published.ctime(),
+            "published": format_date(note.published),
             "text": note.text
         }

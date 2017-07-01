@@ -36,7 +36,7 @@ app.controller('ThanksCtrl', function($scope, $routeParams, $timeout, ThankYouNo
                   vm.notes = data;
               });
           $scope.intervalFunction();
-        }, 10000)
+        }, 15000)
       };
      $scope.intervalFunction();
 

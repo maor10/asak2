@@ -30,23 +30,25 @@ a {
     font-family: 'David Libre', serif;
     border-radius:3px;
     background: linear-gradient(#F9EFAF, #F7E98D);
-    overflow:hidden;
     transition:box-shadow 0.5s ease;
+    box-shadow:0 5px 8px rgba(0,0,0,0.15);
     resize: none;
+    overflow: auto;
 }
 
 .sticky-note:hover {
-    box-shadow:0 5px 8px rgba(0,0,0,0.15);
+    box-shadow:0 5px 8px rgba(0,0,0,0.45);
 }
 
-.sticky-note:focus {
-    box-shadow:0 5px 12px rgba(0,0,0,0.2); outline:none;
-}
 
 .thanks-block {
     width: inherit;
     background: transparent;
     border: none;
+}
+
+.thanks-block .title{
+    display: inline-block;
 }
 
 .notes {
@@ -75,4 +77,15 @@ ul.notes li:nth-child(8n) .sticky-note{
 
 ul.notes li:nth-child(11n) .sticky-note{
     transform: rotate(5deg);
+}
+
+.date {
+    direction: ltr;
+}
+
+.logo:after{
+    content:'';
+}
+.logo:hover:after{
+    content:'-מאפינס';
 }

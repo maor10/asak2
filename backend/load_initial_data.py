@@ -7,7 +7,8 @@ import os
 def load_initial_data():
     if os.environ.get("WERKZEUG_RUN_MAIN") == "true" and not Track.query.filter_by(name=u"Up And Enter").first():
         up_enter = Track(name=u"Up And Enter")
-        up_enter.teachers = [Teacher(name=u"ליאור ב."), Teacher(name=u"ויאס מלך הוואסח"), Teacher(name=u"אבשלום")]
+        up_enter.teachers = [Teacher(name=u"ליאור ב."), Teacher(name=u"ויאס מלך הוואסח"), Teacher(name=u"אבשלום"),
+                             Teacher(name=u'יובל זיתים'), Teacher(name=u'דריזין'), Teacher(name=u'הליאור האשכנזי')]
 
         xml_masters = Track(name=u"XML Masters")
         xml_masters.teachers = [Teacher(name=u"איתי AKA carrot man")]

@@ -62,7 +62,7 @@ app.controller('ProfileCtrl', function($scope, $routeParams, $timeout, Photo, Te
               });
           }
           $scope.intervalFunction();
-        }, 10000)
+        }, 1000)
       };
      $scope.intervalFunction();
 
