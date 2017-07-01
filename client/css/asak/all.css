@@ -100,9 +100,9 @@ md-chips.rtl .md-chips md-chip ._md-chip-remove-container {
 md-chips.rtl .md-chips md-chip:not(.md-readonly) ._md-chip-content {
   margin-left: 24px;
 }
-md-chips.rtl ._md-chip-input-container {
+md-chips.rtl .md-chip-input-container {
   float: right;
 }
-md-chips.rtl ._md-chip-input-container input {
+md-chips.rtl .md-chip-input-container input {
   direction: rtl;
 }
