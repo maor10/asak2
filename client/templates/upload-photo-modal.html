@@ -1,18 +1,23 @@
 <div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="upc.cancel()"><span
             aria-hidden="true">&times;</span></button>
     <h4 class="modal-title" id="modal-title">העלה תמונה</h4>
 </div>
 <div class="modal-body" id="modal-body">
     <form>
-        <div class="form-group">
-            <label><b>הוסף מפקדים שהופיעו בתמונה</b></label>
-            <hr/>
-            <span ng-repeat="teacher in upc.teachers track by $index">
-                                  <label>{{ teacher.name }}</label>
-                                  <md-checkbox ng-click="upc.toggleTeacher(teacher.id)"></md-checkbox>
-                            </span>
-        </div>
+        <label><b>הוסף מפקדים שהופיעו בתמונה</b></label>
+        <md-content class="md-padding autocomplete" layout="column">
+            <md-contact-chips
+                ng-model="upc.photo.teachers"
+                md-contacts="upc.queryTeachers($query)"
+                md-contact-name="name"
+                md-require-match="true"
+                md-highlight-flags="i"
+                placeholder="הוספו מפקדים"
+                filter-selected="upc.filterSelected"
+                style="direction: ltr">
+            </md-contact-chips>
+        </md-content>
         <div class="form-group">
             <label for="photo-caption">טקסט לתמונה</label>
             <textarea class="form-control" ng-model="upc.photo.text" id="photo-caption"

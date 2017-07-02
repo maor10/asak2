@@ -4,6 +4,8 @@
 app.controller('UploadPhotoCtrl', function($scope, $uibModalInstance, Teacher, Photo, teachers) {
 
     var vm = this;
+    vm.filterSelected = true;
+    vm.minLength = 0;
 
     vm.$onInit = function () {
       vm.teachers = teachers;
@@ -23,7 +25,9 @@ app.controller('UploadPhotoCtrl', function($scope, $uibModalInstance, Teacher, P
      */
     vm.uploadPhoto = function() {
         $uibModalInstance.close();
-        Photo.upload(vm.photo.file, vm.photo.text, vm.photo.teachers, function(resp) {
+        Photo.upload(vm.photo.file, vm.photo.text, vm.photo.teachers.map(function(teacher) {
+            return teacher.id;
+        }), function(resp) {
             swal("הושלם!", "ארני גאה בך!", "success");
         }, function (resp) {
             console.log('Error status: ' + resp.status);
@@ -48,6 +52,13 @@ app.controller('UploadPhotoCtrl', function($scope, $uibModalInstance, Teacher, P
         } else {
             vm.photo.teachers.push(teacherID);
         }
+    };
+
+    
+    vm.queryTeachers = function (query) {
+        return vm.teachers.filter(function (teacher) {
+           return teacher.name.indexOf(query) > -1 || query === "";
+        });
     };
 
 });

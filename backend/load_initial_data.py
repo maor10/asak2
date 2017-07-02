@@ -5,16 +5,18 @@ import os
 
 
 def load_initial_data():
-    if os.environ.get("WERKZEUG_RUN_MAIN") == "true":
+    if os.environ.get("WERKZEUG_RUN_MAIN") == "true" and not Track.query.filter_by(name=u"Up And Enter").first():
         up_enter = Track(name=u"Up And Enter")
-        up_enter.teachers = [Teacher(name=u"ליאור ב."), Teacher(name=u"ויאס מלך הוואסח"), Teacher(name=u"אבשלום")]
+        up_enter.teachers = [Teacher(name=u"ליאור ב."), Teacher(name=u"ויאס מלך הוואסח"), Teacher(name=u"אבשלום"),
+                             Teacher(name=u'יובל זיתים'), Teacher(name=u'דריזין'), Teacher(name=u'הליאור האשכנזי'),
+                             Teacher(name=u'בנצ׳וק')]
 
         xml_masters = Track(name=u"XML Masters")
         xml_masters.teachers = [Teacher(name=u"איתי AKA carrot man")]
 
         code_monkeys = Track(name=u"Code Monkeys")
-        code_monkeys.teachers = [Teacher(name=u"אהוד התותח"), Teacher(name=u"שרון"), Teacher(name=u"יונתן")
-            , Teacher(name=u"מור")]
+        code_monkeys.teachers = [Teacher(name=u"אהוד התותח"), Teacher(name=u"שרון המלך"), Teacher(name=u"יונתן")
+            ,Teacher(name=u"מור"), Teacher(name=u"נתי"), Teacher(name=u"נוציק"), Teacher(name=u"אדם AKA papa devops")]
 
         boring = Track(name=u"תרגיל המשעמם בייקום")
         boring.teachers = [Teacher(name=u"שי")]

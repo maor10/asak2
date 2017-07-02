@@ -3,7 +3,7 @@
 }
 
 .photo-block{
-    width:inherit;
+    width: 300px;;
 }
 
 .track-select md-select-menu {
@@ -18,4 +18,95 @@
 
 a {
     cursor: pointer;
+}
+
+
+.sticky-note {
+    padding:25px 25px 40px;
+    width:230px;
+    height:250px;
+    line-height:1.5;
+    border:0;
+    font-family: 'David Libre', serif;
+    border-radius:3px;
+    background: linear-gradient(#F9EFAF, #F7E98D);
+    transition:box-shadow 0.5s ease;
+    box-shadow:0 5px 8px rgba(0,0,0,0.15);
+    resize: none;
+    overflow: auto;
+}
+
+.sticky-note:hover {
+    box-shadow:0 5px 8px rgba(0,0,0,0.45);
+}
+
+
+.thanks-block {
+    width: inherit;
+    background: transparent;
+    border: none;
+}
+
+.thanks-block .title{
+    display: inline-block;
+}
+
+.notes {
+    list-style-type: none;
+}
+
+ul.notes li:nth-child(n) .sticky-note{
+    transform: rotate(-5deg);
+}
+
+ul.notes li:nth-child(2n) .sticky-note{
+    transform: rotate(3deg);
+}
+
+ul.notes li:nth-child(3n) .sticky-note{
+    transform: rotate(-3deg);
+}
+
+ul.notes li:nth-child(5n) .sticky-note{
+    transform: rotate(-2deg);
+}
+
+ul.notes li:nth-child(8n) .sticky-note{
+    transform: rotate(4.5deg);
+}
+
+ul.notes li:nth-child(11n) .sticky-note{
+    transform: rotate(5deg);
+}
+
+.date {
+    direction: ltr;
+}
+
+.logo:after{
+    content:'';
+}
+.logo:hover:after{
+    content:'-מאפינס';
+}
+/*
+md-chips.rtl .md-chips md-chip {
+  float: right;
+}
+md-chips.rtl .md-chips md-chip ._md-chip-remove-container {
+  right: initial;
+  left: 4px;
+}
+md-chips.rtl .md-chips md-chip:not(.md-readonly) ._md-chip-content {
+  margin-left: 24px;
+}
+md-chips.rtl .md-chip-input-container {
+  float: right;
+}
+md-chips.rtl .md-chip-input-container input {
+  direction: rtl;
+}
+*/
+.md-autocomplete-suggestions-container{
+   z-index:100000 !important; /* any number of choice > 1050*/
 }
