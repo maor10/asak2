@@ -1,11 +1,10 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 from models import *
-import os
 
 
 def load_initial_data():
-    if os.environ.get("WERKZEUG_RUN_MAIN") == "true" and not Track.query.filter_by(name=u"Up And Enter").first():
+    if not Track.query.filter_by(name=u"Up And Enter").first():
         up_enter = Track(name=u"Up And Enter")
         up_enter.teachers = [Teacher(name=u"ליאור ב."), Teacher(name=u"ויאס מלך הוואסח"), Teacher(name=u"אבשלום"),
                              Teacher(name=u'יובל זיתים'), Teacher(name=u'דריזין'), Teacher(name=u'הליאור האשכנזי'),
