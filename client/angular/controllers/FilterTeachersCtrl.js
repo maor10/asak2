@@ -7,6 +7,7 @@ app.controller('FilterTeachersCtrl', function($scope) {
 
     vm.tracks = $scope.tracks;
     vm.teachers = $scope.teachers;
+    vm.teachers.unshift({name:"כולם"});
 
     /**
      * Teachers filtered
@@ -29,6 +30,7 @@ app.controller('FilterTeachersCtrl', function($scope) {
                 && teacherNameMatchesFilter(teacher, vm.searchText)
         });
         $scope.onFilter({filteredTeachers: vm.filteredTeachers});
+        vm.filteredTeachers.unshift({name: "כולם"});
         return vm.filteredTeachers;
     };
 
@@ -47,7 +49,7 @@ app.controller('FilterTeachersCtrl', function($scope) {
      * @returns {boolean}
      */
     function teacherNameMatchesFilter(teacher, searchText) {
-        return (teacher.name.indexOf(searchText) > -1 || searchText === "") ;
+        return (teacher.name.indexOf(searchText) > -1 || searchText === "" || searchText  === "כולם") ;
     }
 
 

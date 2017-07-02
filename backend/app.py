@@ -39,6 +39,7 @@ def get_url_for_thumb(thumb_name):
     url_for_thumb = os.path.join(config.THUMBNAILS_URL, "{0}".format(thumb_name))
     return url_for_thumb
 
+
 @app.route('/uploads/photos/<path:photo>')
 def send_photo(photo):
     return send_from_directory(directory=config.PHOTOS_PATH, filename=photo)
@@ -184,25 +185,6 @@ def create_thank_you_note():
 @app.route('/thanks', methods=['GET'])
 def thank_you_notes():
     return json.dumps(ThankYouNote.query.all(), cls=ThankYouNoteEncoder)
-
-
-
-@app.route("/login", methods=['POST'])
-def login():
-    if request.method == 'POST':
-        form = request.form
-        username = form['username']
-        password = form['password']
-        if User.validate_login(username, password):
-            session['username'] = username
-            return json.dumps(True)
-    return json.dumps(False)
-
-
-@app.route('/logout', methods=['POST'])
-def logout():
-    session.pop('username', None)
-    return json.dumps(True)
 
 
 def _send_template(file):

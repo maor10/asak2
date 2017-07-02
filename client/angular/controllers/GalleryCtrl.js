@@ -42,6 +42,23 @@ app.controller('GalleryCtrl', function($scope, $uibModal, Photo, Teacher, Track)
     };
 
 
+    vm.openPhotoModal = function(photo) {
+        $uibModal.open({
+            animation: true,
+            ariaDescribedBy: 'modal-body',
+            templateUrl: '/media/templates/photo-modal.html',
+            size: 'lg',
+            controller: 'PhotoCtrl',
+            controllerAs: 'photo',
+            resolve: {
+                photo: function() {
+                    return photo;
+                }
+            }
+        });
+    };
+
+
     vm.onFilter = function(filteredTeachers) {
         vm.filteredPhotos = vm.photos.filter(function(photo) {
             return _.intersection(

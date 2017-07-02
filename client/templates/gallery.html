@@ -3,7 +3,7 @@
 <div class="row" data-toggle="isotope" style="text-align:center">
     <div class="col-xs-12 col-md-6 col-lg-4 item photo-block" ng-repeat="photo in gallery.filteredPhotos">
         <div class="panel panel-default relative">
-            <img ng-src="{{ photo.thumbnail }}" alt="place" class="img-responsive">
+            <img ng-click="gallery.openPhotoModal(photo)" ng-src="{{ photo.thumbnail }}" alt="place" class="img-responsive">
             <div class="panel-body">
                 <span>{{ photo.text }}</span>
                 <hr/>
