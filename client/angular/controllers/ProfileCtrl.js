@@ -34,7 +34,9 @@ app.controller('ProfileCtrl', function($scope, $routeParams, $timeout, Photo, Te
             teacher_id: vm.teacher.id
         });
         comment.$save();
-        vm.comments = Comment.query({teacher_id: $routeParams.id});
+        Comment.query({teacher_id: vm.teacher.id}, function(data) {
+            vm.comments = data;
+        });
         vm.comment.text = "";
     };
 
@@ -42,6 +44,7 @@ app.controller('ProfileCtrl', function($scope, $routeParams, $timeout, Photo, Te
     this.onSelectTeacher = function (teacher) {
         vm.teacher = teacher;
         vm.photos = Photo.query({teacher_id: teacher.id});
+        refreshComments();
     };
 
 
@@ -54,15 +57,18 @@ app.controller('ProfileCtrl', function($scope, $routeParams, $timeout, Photo, Te
         vm.photos = Photo.query({teacher_id: teacher_id});
     }
 
-    $scope.intervalFunction = function(){
-        $timeout(function() {
-          if (vm.teacher !== undefined) {
+    function refreshComments() {
+        if (vm.teacher !== undefined) {
               Comment.query({teacher_id: vm.teacher.id}, function(data) {
                   vm.comments = data;
               });
-          }
+        }
+    }
+    $scope.intervalFunction = function(){
+        $timeout(function() {
+          refreshComments();
           $scope.intervalFunction();
-        }, 1000)
+        }, 5000)
       };
      $scope.intervalFunction();
 
