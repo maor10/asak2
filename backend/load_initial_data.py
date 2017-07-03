@@ -4,6 +4,7 @@ from models import *
 
 
 def load_initial_data():
+    pass
     # if not Track.query.filter_by(name=u"Up And Enter").first():
     #     pass
     # up_enter = Track(name=u"Up And Enter")
@@ -33,9 +34,9 @@ def load_initial_data():
     # db.session.add(boring)
     # db.session.add(eyals)
     # db.session.commit()
-    
-    for i in Teacher.query.filter(Teacher.id > 32).all():
-        db.session.delete(i)
-
-    db.session.commit()
+    #
+    # for i in Teacher.query.filter(Teacher.id > 32).all():
+    #     db.session.delete(i)
+    #
+    # db.session.commit()
 
