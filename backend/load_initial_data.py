@@ -33,6 +33,7 @@ def load_initial_data():
     # db.session.add(boring)
     # db.session.add(eyals)
     # db.session.commit()
+    
     for i in Teacher.query.filter(Teacher.id > 32).all():
         db.session.delete(i)
 
