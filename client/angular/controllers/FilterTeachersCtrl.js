@@ -7,7 +7,6 @@ app.controller('FilterTeachersCtrl', function($scope) {
 
     vm.tracks = $scope.tracks;
     vm.teachers = $scope.teachers;
-    vm.teachers.unshift({name:"כולם"});
 
     /**
      * Teachers filtered
