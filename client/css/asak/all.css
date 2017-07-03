@@ -110,3 +110,8 @@ md-chips.rtl .md-chip-input-container input {
 .md-autocomplete-suggestions-container{
    z-index:100000 !important; /* any number of choice > 1050*/
 }
+
+md-select > md-select-value > span {
+    color: white;
+}
+

@@ -10,7 +10,7 @@ from encoders import PhotoEncoder, TeacherEncoder, TrackEncoder, CommentEncoder,
 from load_initial_data import load_initial_data
 from models import *
 
-THUMBNAIL_SIZE = (300, 200)
+THUMBNAIL_SIZE = (300, 300)
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -88,8 +88,8 @@ def photos():
     elif 'track_id' in args:
         teachers = Teacher.query.filter_by(track_id=int(args['track_id']).all())
         photos = reduce(lambda x, y: x + y, [teacher.photos for teacher in teachers])
-        return json.dumps(photos, cls=PhotoEncoder)
-    return json.dumps(Photo.query.all(), cls=PhotoEncoder)
+        return json.dumps(sorted(photos, key=lambda p: p.published), cls=PhotoEncoder)
+    return json.dumps(Photo.query.order_by(Photo.published.desc()).all(), cls=PhotoEncoder)
 
 
 @app.route('/photos', methods=['POST'])
@@ -184,7 +184,7 @@ def create_thank_you_note():
 
 @app.route('/thanks', methods=['GET'])
 def thank_you_notes():
-    return json.dumps(ThankYouNote.query.all(), cls=ThankYouNoteEncoder)
+    return json.dumps(ThankYouNote.query.order_by(ThankYouNote.published.desc()).all(), cls=ThankYouNoteEncoder)
 
 
 def _send_template(file):
@@ -194,4 +194,5 @@ def _send_template(file):
 if __name__ == '__main__':
     with app.app_context():
         db.create_all()
-    app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 80)), debug=False)
+        load_initial_data()
+    app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 5000)), debug=config.DEBUG)

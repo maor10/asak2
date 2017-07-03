@@ -25,6 +25,7 @@ app.controller('UploadPhotoCtrl', function($scope, $uibModalInstance, Teacher, P
      */
     vm.uploadPhoto = function() {
         $uibModalInstance.close();
+        swal("מעלה..", "התמונה עולה", "success");
         Photo.upload(vm.photo.file, vm.photo.text, vm.photo.teachers.map(function(teacher) {
             return teacher.id;
         }), function(resp) {
@@ -33,6 +34,7 @@ app.controller('UploadPhotoCtrl', function($scope, $uibModalInstance, Teacher, P
             console.log('Error status: ' + resp.status);
             swal("כושלה!", "יכשלון... כמה האתר כבר קשה לשימוש?!", "error");
         });
+
     };
 
     /**

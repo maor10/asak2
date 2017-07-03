@@ -3,8 +3,8 @@
     <div class="row">
         <div ng-if="filter.tracks.length > 0">
             <md-input-container>
-                <label>בחר מגמה לחיפוש</label>
-                <md-select md-container-class="track-select" ng-model="filter.selectedTrackID" ng-change="filter.filterTeachers()">
+                <label style="color: white">בחר מגמה לחיפוש</label>
+                <md-select class="white" md-container-class="track-select" ng-model="filter.selectedTrackID" ng-change="filter.filterTeachers()">
                     <md-option ng-value="-1"> כולם </md-option>
                     <md-option ng-value="track.id" ng-repeat="track in filter.tracks">{{ track.name }}</md-option>
                 </md-select>
