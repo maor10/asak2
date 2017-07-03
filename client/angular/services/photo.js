@@ -1,3 +1,4 @@
+var HEIGHT =  250;
 /**
  * Photo service to perform all REST actions on photos, including uploading photos
  */
@@ -14,22 +15,35 @@ app.factory('Photo', function ($resource, Upload) {
      * @param error
      */
     Photo.upload = function (file, text, teachers, success, error) {
-        Upload.upload({
-            url: 'photos',
-            arrayKey: '',
-            headers: {'Content-Type': 'multipart/form-data'},
-            data: {
-                photo: file,
-                text: text,
-                teachers: JSON.stringify(teachers)
-            }
-        }).then(function (resp) {
-            success(resp);
-        }, function (resp) {
-            error(resp);
-        });
+        Upload.imageDimensions(file).then(
+            function(dimensions){
+                var scale = dimensions.height / HEIGHT;
+                Upload.resize(file, {
+                    width: dimensions.width / scale,
+                    height: dimensions.height / scale
+                }).then(
+                    function(resizedFile){
+                        Upload.upload({
+                            url: 'photos',
+                            arrayKey: '',
+                            headers: {'Content-Type': 'multipart/form-data'},
+                            data: {
+                                photo: resizedFile,
+                                text: text,
+                                teachers: JSON.stringify(teachers)
+                            }
+                        }).then(function (resp) {
+                            success(resp);
+                        }, function (resp) {
+                            error(resp);
+                        });
+                    });
+            });
     };
+
+
 
 
     return Photo;
 });
+

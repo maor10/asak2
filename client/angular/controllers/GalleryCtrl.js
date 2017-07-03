@@ -31,11 +31,15 @@ app.controller('GalleryCtrl', function($scope, $uibModal, Photo, Teacher, Track)
             }
         });
 
-        modalInstance.result.then(function () {
-            Photo.query(function (data) {
-                vm.photos = data;
-                vm.filteredPhotos = vm.photos;
-            });
+        modalInstance.result.then(function (photo) {
+            swal("מעלה..", "התמונה עולה", "success");
+                Photo.upload(photo.file, photo.text, photo.teachers, function(resp) {
+                    vm.photos.push(resp.data);
+                    swal("הושלם!", "ארני גאה בך!", "success");
+                }, function (resp) {
+                    console.log('Error status: ' + resp.status);
+                    swal("כושלה!", "יכשלון... כמה האתר כבר קשה לשימוש?!", "error");
+                });
         });
 
 

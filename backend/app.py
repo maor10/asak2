@@ -112,7 +112,7 @@ def create_photo():
                 teacher.photos.append(photo)
             db.session.add(photo)
             db.session.commit()
-    return json.dumps(True)
+    return json.dumps(photo, cls=PhotoEncoder)
 
 
 @app.route('/teachers', methods=['GET'])

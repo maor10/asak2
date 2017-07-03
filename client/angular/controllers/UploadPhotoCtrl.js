@@ -24,17 +24,10 @@ app.controller('UploadPhotoCtrl', function($scope, $uibModalInstance, Teacher, P
      * Uploads a photo to the server
      */
     vm.uploadPhoto = function() {
-        $uibModalInstance.close();
-        swal("מעלה..", "התמונה עולה", "success");
-        Photo.upload(vm.photo.file, vm.photo.text, vm.photo.teachers.map(function(teacher) {
+        var photo = {file: vm.photo.file, text: vm.photo.text, teachers: vm.photo.teachers.map(function(teacher) {
             return teacher.id;
-        }), function(resp) {
-            swal("הושלם!", "ארני גאה בך!", "success");
-        }, function (resp) {
-            console.log('Error status: ' + resp.status);
-            swal("כושלה!", "יכשלון... כמה האתר כבר קשה לשימוש?!", "error");
-        });
-
+        })};
+        $uibModalInstance.close(photo);
     };
 
     /**
@@ -64,3 +57,4 @@ app.controller('UploadPhotoCtrl', function($scope, $uibModalInstance, Teacher, P
     };
 
 });
+
