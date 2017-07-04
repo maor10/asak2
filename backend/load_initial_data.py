@@ -1,10 +1,9 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 from models import *
-
+from app import app
 
 def load_initial_data():
-    pass
     # if not Track.query.filter_by(name=u"Up And Enter").first():
     #     pass
     # up_enter = Track(name=u"Up And Enter")
@@ -35,8 +34,14 @@ def load_initial_data():
     # db.session.add(eyals)
     # db.session.commit()
 
-    for i in Track.query.filter(Track.id > 5).all():
-        db.session.delete(i)
+    #for i in Track.query.filter(Track.id > 5).all():
+    #    db.session.delete(i)
 
+    #db.session.commit()
+    mehkar = Track.query.filter(Track.name == "Amit Eyal And Sons").first()
+    mehkar.teachers.append(Teacher(name=u"ניל"))
     db.session.commit()
 
+
+if __name__ == "__main__":
+    load_initial_data()
