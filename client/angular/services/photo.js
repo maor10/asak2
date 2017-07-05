@@ -1,4 +1,4 @@
-var HEIGHT =  250;
+var HEIGHT =  350;
 /**
  * Photo service to perform all REST actions on photos, including uploading photos
  */

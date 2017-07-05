@@ -3,6 +3,7 @@
 }
 
 .photo-block{
+    margin: auto;
     width: 300px;;
 }
 
@@ -115,3 +116,6 @@ md-select > md-select-value > span {
     color: white;
 }
 
+.modal-dialog {
+    height: 0 !important;
+}

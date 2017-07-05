@@ -32,7 +32,7 @@ app.controller('GalleryCtrl', function($scope, $uibModal, Photo, Teacher, Track)
         });
 
         modalInstance.result.then(function (photo) {
-            swal("מעלה..", "התמונה עולה", "success");
+            swal("התמונה עולה");
                 Photo.upload(photo.file, photo.text, photo.teachers, function(resp) {
                     vm.photos.push(resp.data);
                     swal("הושלם!", "ארני גאה בך!", "success");

@@ -24,10 +24,16 @@ app.controller('UploadPhotoCtrl', function($scope, $uibModalInstance, Teacher, P
      * Uploads a photo to the server
      */
     vm.uploadPhoto = function() {
-        var photo = {file: vm.photo.file, text: vm.photo.text, teachers: vm.photo.teachers.map(function(teacher) {
-            return teacher.id;
-        })};
-        $uibModalInstance.close(photo);
+        if (vm.photo.hasOwnProperty("file") && vm.photo.hasOwnProperty("text") && vm.photo.hasOwnProperty("teachers")) {
+            var photo = {
+                file: vm.photo.file, text: vm.photo.text, teachers: vm.photo.teachers.map(function (teacher) {
+                    return teacher.id;
+                })
+            };
+            $uibModalInstance.close(photo);
+        } else {
+            swal("פסטן!!!", "יחנון, תמלא את כל השדות!", "error");
+        }
     };
 
     /**
