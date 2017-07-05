@@ -2,21 +2,48 @@ import json
 import os
 
 from PIL import Image, ImageOps
-from flask import Flask, send_from_directory, request, session, abort
+from flask import Flask, send_from_directory, request, session, abort, Response
 from flask_uploads import configure_uploads, UploadNotAllowed
-
+from flask_admin import Admin
+from flask_admin.contrib.sqla import ModelView
+from flask_basicauth import BasicAuth
+from werkzeug.exceptions import HTTPException
 import config
 from encoders import PhotoEncoder, TeacherEncoder, TrackEncoder, CommentEncoder, ThankYouNoteEncoder
-from load_initial_data import load_initial_data
 from models import *
 
 THUMBNAIL_SIZE = (300, 300)
 app = Flask(__name__)
+app.secret_key = os.urandom(24)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['UPLOADS_DEFAULT_DEST'] = config.PHOTOS_PATH
+
 db.init_app(app)
 configure_uploads(app, uploaded_photos)
+
+app.config['ADMIN_CREDENTIALS'] = ('debbie', 'Debbiefuckme18')
+
+basic_auth = BasicAuth(app)
+
+class AModelView(ModelView):
+
+    def is_accessible(self):
+        auth = request.authorization or request.environ.get('REMOTE_USER')  # workaround for Apache
+        if not auth or (auth.username, auth.password) != app.config['ADMIN_CREDENTIALS']:
+            raise HTTPException('', Response(
+                "Please log in.", 401,
+                {'WWW-Authenticate': 'Basic realm="Login Required"'}
+            ))
+        return True
+
+admin = Admin(app, name='asak2', template_mode='bootstrap3')
+admin.add_view(AModelView(Teacher, db.session))
+admin.add_view(AModelView(Photo, db.session))
+admin.add_view(AModelView(ThankYouNote, db.session))
+admin.add_view(AModelView(Track, db.session))
+admin.add_view(AModelView(Comment, db.session))
+
 
 
 def create_thumbnail(photo_path, file_name, size=config.THUMBNAIL_SIZE):
@@ -194,4 +221,4 @@ def _send_template(file):
 if __name__ == '__main__':
     with app.app_context():
         db.create_all()
-    app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 80)), debug=config.DEBUG)
+    app.run(host='0.0.0.0', debug=config.DEBUG)
