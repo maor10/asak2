@@ -93,11 +93,11 @@ ul.notes li:nth-child(11n) .sticky-note{
 md-chips.rtl .md-chips md-chip {
   float: right;
 }
-md-chips.rtl .md-chips md-chip ._md-chip-remove-container {
+md-chips.rtl .md-chips md-chip .md-chip-remove-container {
   right: initial;
   left: 4px;
 }
-md-chips.rtl .md-chips md-chip:not(.md-readonly) ._md-chip-content {
+md-chips.rtl .md-chips md-chip:not(.md-readonly) .md-chip-content {
   margin-left: 24px;
 }
 md-chips.rtl .md-chip-input-container {

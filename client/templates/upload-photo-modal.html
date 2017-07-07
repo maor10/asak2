@@ -14,15 +14,17 @@
                                     <label>{{ teacher.name }}</label>
                             </span>
         </div>-->
-        {{ upc.searchText }}
-        {{ upc.QuerySearchTeachers(upc.searchText) }}
+        <!-- CHIPS STUFF -->
+        {{ upc.searchText }}<br/>
+        {{ upc.QuerySearchTeachers(upc.searchText) }}<br/>
+        {{ upc.photo.teachers }}<br/>
     <md-chips class="rtl" ng-model="upc.photo.teachers" md-autocomplete-snap
               md-transform-chip="upc.transformChip($chip)"
               md-require-match="upc.autocompleteRequireMatch">
       <md-autocomplete
           md-selected-item="upc.selectedItem"
           md-search-text="upc.searchText"
-          md-items="teacher_opt upc.QuerySearchTeachers(upc.searchText"
+          md-items="teacher_opt in upc.QuerySearchTeachers(upc.searchText)"
           md-item-text="teacher_opt.name"
           placeholder="הוסיפו מפקדים">
         <span md-highlight-text="searchText">{{teacher_opt.name}}</span>
@@ -34,6 +36,8 @@
         </span>
       </md-chip-template>
     </md-chips>
+
+        <!-- END OF CHIPS STUFF -->
 
 
         <div class="form-group">

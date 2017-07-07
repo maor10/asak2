@@ -63,6 +63,7 @@ app.controller('UploadPhotoCtrl', function($scope, $uibModalInstance, Teacher, P
     vm.autocompleteRequireMatch = true;
     vm.selectedItem = null;
     vm.searchText = null;
+    vm.filterSelected = true;
 
     /**
      * Search for teachers.
