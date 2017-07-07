@@ -5,41 +5,19 @@
 </div>
 <div class="modal-body" id="modal-body">
     <form>
-        <!--
-        <div class="form-group">
-            <label><b>הוסף מפקדים שהופיעו בתמונה</b></label>
-            <hr/>
-            <span ng-repeat="teacher in upc.teachers track by $index" style="margin-left: 3px;">
-                                  <md-checkbox ng-click="upc.toggleTeacher(teacher.id)"></md-checkbox>
-                                    <label>{{ teacher.name }}</label>
-                            </span>
-        </div>-->
-        <!-- CHIPS STUFF -->
-        {{ upc.searchText }}<br/>
-        {{ upc.QuerySearchTeachers(upc.searchText) }}<br/>
-        {{ upc.photo.teachers }}<br/>
-    <md-chips class="rtl" ng-model="upc.photo.teachers" md-autocomplete-snap
-              md-transform-chip="upc.transformChip($chip)"
-              md-require-match="upc.autocompleteRequireMatch">
-      <md-autocomplete
-          md-selected-item="upc.selectedItem"
-          md-search-text="upc.searchText"
-          md-items="teacher_opt in upc.QuerySearchTeachers(upc.searchText)"
-          md-item-text="teacher_opt.name"
-          placeholder="הוסיפו מפקדים">
-        <span md-highlight-text="searchText">{{teacher_opt.name}}</span>
-      </md-autocomplete>
-      <md-chip-template dir="auto">
-        <span>
-          <strong>{{$chip}}</strong>
-          <em>({{$chip.track_name}})</em>
-        </span>
-      </md-chip-template>
-    </md-chips>
-
-        <!-- END OF CHIPS STUFF -->
-
-
+        <label><b>הוסף מפקדים שהופיעו בתמונה</b></label>
+        <md-content class="md-padding autocomplete" layout="column">
+            <md-contact-chips
+                ng-model="upc.photo.teachers"
+                md-contacts="upc.queryTeachers($query)"
+                md-contact-name="name"
+                md-require-match="true"
+                md-highlight-flags="i"
+                placeholder="הוספו מפקדים"
+                filter-selected="upc.filterSelected"
+                style="direction: ltr">
+            </md-contact-chips>
+        </md-content>
         <div class="form-group">
             <label for="photo-caption">טקסט לתמונה</label>
             <textarea class="form-control" ng-model="upc.photo.text" id="photo-caption"

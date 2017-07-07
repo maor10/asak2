@@ -4,6 +4,8 @@
 app.controller('UploadPhotoCtrl', function($scope, $uibModalInstance, Teacher, Photo, teachers) {
 
     var vm = this;
+    vm.filterSelected = true;
+    vm.minLength = 0;
 
     vm.$onInit = function () {
       vm.teachers = teachers;
@@ -22,13 +24,16 @@ app.controller('UploadPhotoCtrl', function($scope, $uibModalInstance, Teacher, P
      * Uploads a photo to the server
      */
     vm.uploadPhoto = function() {
-        $uibModalInstance.close();
-        Photo.upload(vm.photo.file, vm.photo.text, vm.photo.teachers, function(resp) {
-            swal("הושלם!", "ארני גאה בך!", "success");
-        }, function (resp) {
-            console.log('Error status: ' + resp.status);
-            swal("כושלה!", "יכשלון... כמה האתר כבר קשה לשימוש?!", "error");
-        });
+        if (vm.photo.hasOwnProperty("file") && vm.photo.hasOwnProperty("text") && vm.photo.hasOwnProperty("teachers")) {
+            var photo = {
+                file: vm.photo.file, text: vm.photo.text, teachers: vm.photo.teachers.map(function (teacher) {
+                    return teacher.id;
+                })
+            };
+            $uibModalInstance.close(photo);
+        } else {
+            swal("פסטן!!!", "יחנון, תמלא את כל השדות!", "error");
+        }
     };
 
     /**
@@ -50,37 +55,12 @@ app.controller('UploadPhotoCtrl', function($scope, $uibModalInstance, Teacher, P
         }
     };
 
-
-    // ----------------FROM HERE IS FOR CHIPS --------------//
-    /**
-     * Return the proper object when the append is called.
-     */
-    vm.transformChip = function transformChip(chip) {
-      // If it is an object, it's already a known chip
-        return chip.id;
-      };
-
-    vm.autocompleteRequireMatch = true;
-    vm.selectedItem = null;
-    vm.searchText = null;
-    vm.filterSelected = true;
-
-    /**
-     * Search for teachers.
-     */
-    vm.QuerySearchTeachers = function querySearch (query) {
-      var results = query ? vm.teachers.filter(vm.CreateFilterForTeacher(query)) : [];
-      return results;
-    };
-
-    /**
-     * Create filter function for a query string
-     */
-    vm.CreateFilterForTeacher = function createFilterFor(query) {
-      return function filterFn(teacher) {
-        return (teacher.name.indexOf(query) !== -1);
-      };
-
+    
+    vm.queryTeachers = function (query) {
+        return vm.teachers.filter(function (teacher) {
+           return teacher.name.indexOf(query) > -1 || query === "";
+        });
     };
 
 });
+

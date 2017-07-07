@@ -1,3 +1,4 @@
 .idea/
 *.pyc
+backend/database.db
 uploads/

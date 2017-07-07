@@ -3,6 +3,7 @@
 }
 
 .photo-block{
+    margin: auto;
     width: 300px;;
 }
 
@@ -89,7 +90,7 @@ ul.notes li:nth-child(11n) .sticky-note{
 .logo:hover:after{
     content:'-מאפינס';
 }
-
+/*
 md-chips.rtl .md-chips md-chip {
   float: right;
 }
@@ -105,4 +106,16 @@ md-chips.rtl .md-chip-input-container {
 }
 md-chips.rtl .md-chip-input-container input {
   direction: rtl;
+}
+*/
+.md-autocomplete-suggestions-container{
+   z-index:100000 !important; /* any number of choice > 1050*/
+}
+
+md-select > md-select-value > span {
+    color: white;
+}
+
+.modal-dialog {
+    height: 0 !important;
 }

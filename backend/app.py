@@ -2,21 +2,48 @@ import json
 import os
 
 from PIL import Image, ImageOps
-from flask import Flask, send_from_directory, request, session, abort
+from flask import Flask, send_from_directory, request, session, abort, Response
 from flask_uploads import configure_uploads, UploadNotAllowed
-
+from flask_admin import Admin
+from flask_admin.contrib.sqla import ModelView
+from flask_basicauth import BasicAuth
+from werkzeug.exceptions import HTTPException
 import config
 from encoders import PhotoEncoder, TeacherEncoder, TrackEncoder, CommentEncoder, ThankYouNoteEncoder
-from load_initial_data import load_initial_data
 from models import *
 
-THUMBNAIL_SIZE = (300, 200)
+THUMBNAIL_SIZE = (300, 300)
 app = Flask(__name__)
+app.secret_key = os.urandom(24)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['UPLOADS_DEFAULT_DEST'] = config.PHOTOS_PATH
+
 db.init_app(app)
 configure_uploads(app, uploaded_photos)
+
+app.config['ADMIN_CREDENTIALS'] = ('debbie', 'Debbiefuckme18')
+
+basic_auth = BasicAuth(app)
+
+class AModelView(ModelView):
+
+    def is_accessible(self):
+        auth = request.authorization or request.environ.get('REMOTE_USER')  # workaround for Apache
+        if not auth or (auth.username, auth.password) != app.config['ADMIN_CREDENTIALS']:
+            raise HTTPException('', Response(
+                "Please log in.", 401,
+                {'WWW-Authenticate': 'Basic realm="Login Required"'}
+            ))
+        return True
+
+admin = Admin(app, name='asak2', template_mode='bootstrap3')
+admin.add_view(AModelView(Teacher, db.session))
+admin.add_view(AModelView(Photo, db.session))
+admin.add_view(AModelView(ThankYouNote, db.session))
+admin.add_view(AModelView(Track, db.session))
+admin.add_view(AModelView(Comment, db.session))
+
 
 
 def create_thumbnail(photo_path, file_name, size=config.THUMBNAIL_SIZE):
@@ -38,6 +65,7 @@ def create_thumbnail(photo_path, file_name, size=config.THUMBNAIL_SIZE):
 def get_url_for_thumb(thumb_name):
     url_for_thumb = os.path.join(config.THUMBNAILS_URL, "{0}".format(thumb_name))
     return url_for_thumb
+
 
 @app.route('/uploads/photos/<path:photo>')
 def send_photo(photo):
@@ -87,8 +115,8 @@ def photos():
     elif 'track_id' in args:
         teachers = Teacher.query.filter_by(track_id=int(args['track_id']).all())
         photos = reduce(lambda x, y: x + y, [teacher.photos for teacher in teachers])
-        return json.dumps(photos, cls=PhotoEncoder)
-    return json.dumps(Photo.query.all(), cls=PhotoEncoder)
+        return json.dumps(sorted(photos, key=lambda p: p.published), cls=PhotoEncoder)
+    return json.dumps(Photo.query.order_by(Photo.published.desc()).all(), cls=PhotoEncoder)
 
 
 @app.route('/photos', methods=['POST'])
@@ -111,7 +139,7 @@ def create_photo():
                 teacher.photos.append(photo)
             db.session.add(photo)
             db.session.commit()
-    return json.dumps(True)
+    return json.dumps(photo, cls=PhotoEncoder)
 
 
 @app.route('/teachers', methods=['GET'])
@@ -183,26 +211,7 @@ def create_thank_you_note():
 
 @app.route('/thanks', methods=['GET'])
 def thank_you_notes():
-    return json.dumps(ThankYouNote.query.all(), cls=ThankYouNoteEncoder)
-
-
-
-@app.route("/login", methods=['POST'])
-def login():
-    if request.method == 'POST':
-        form = request.form
-        username = form['username']
-        password = form['password']
-        if User.validate_login(username, password):
-            session['username'] = username
-            return json.dumps(True)
-    return json.dumps(False)
-
-
-@app.route('/logout', methods=['POST'])
-def logout():
-    session.pop('username', None)
-    return json.dumps(True)
+    return json.dumps(ThankYouNote.query.order_by(ThankYouNote.published.desc()).all(), cls=ThankYouNoteEncoder)
 
 
 def _send_template(file):
@@ -212,5 +221,4 @@ def _send_template(file):
 if __name__ == '__main__':
     with app.app_context():
         db.create_all()
-        load_initial_data()
-    app.run(host='10.0.0.15', port=int(os.environ.get('PORT', 5000)), debug=True)
+    app.run(host='127.0.0.1', debug=config.DEBUG)

@@ -8,7 +8,6 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <title>ASAKKK</title>
-
     <link href="/media/css/vendor/all.css" rel="stylesheet">
     <link href="/media/css/app/app.css" rel="stylesheet">
     <link href="/media/css/asak/all.css" rel="stylesheet">
@@ -16,11 +15,13 @@
     <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=David+Libre|Secular+One|Suez+One" rel="stylesheet">
     <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/moqmar/weather.css/master/weather.min.css">
 
 </head>
 
 <body ng-app="asak">
 
+<canvas id="c" style="width: 100%; height: 100%; position: absolute"></canvas>
 <!-- Wrapper required for sidebar transitions -->
 <div class="st-container">
 
@@ -33,12 +34,12 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand logo" href="#">ASAKKKK</a>
+                <a class="navbar-brand logo" href="#">אסקקקקקקק</a>
             </div>
             <div class="collapse navbar-collapse" uib-collapse="navbar.isNavCollapsed">
                 <ul class="nav navbar-nav">
-                    <li ng-class="{active: navbar.$route.current.activeTab == 'teachers'}"><a ng-click="navbar.goToTeachers()">מפקדים</a></li>
                     <li ng-class="{active: navbar.$route.current.activeTab == 'gallery'}"><a ng-click="navbar.goToGallery()">תמונות</a></li>
+                    <li ng-class="{active: navbar.$route.current.activeTab == 'teachers'}"><a ng-click="navbar.goToTeachers()">מפקדים</a></li>
                     <li ng-class="{active: navbar.$route.current.activeTab == 'thanks'}"><a ng-click="navbar.goToThanks()">תודות</a></li>
                 </ul>
             </div>
@@ -87,9 +88,8 @@
     <!-- // Footer -->
 
 </div>
-<!-- /st-container -->
 
-<!-- Inline Script for colors and config objects; used by various external scripts; -->
+    <!-- Inline Script for colors and config objects; used by various external scripts; -->
 <script>
     var colors = {
         "danger-color": "#e74c3c",
@@ -108,7 +108,7 @@
         theme: "social-3-rtl",
         skins: {
             "default": {
-                "primary-color": "#16ae9f"
+                "primary-color": ""
             },
             "orange": {
                 "primary-color": "#e74c3c"
@@ -143,7 +143,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.5.0/ui-bootstrap-tpls.min.js"></script>
 
 <!-- Angular Material Library -->
-<script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.js"></script>
 
 <!-- Vendor libraries -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/danialfarid-angular-file-upload/12.2.13/ng-file-upload.min.js"></script>
@@ -172,8 +172,61 @@
 <script src="/media/angular/controllers/TeachersCtrl.js"></script>
 <script src="/media/angular/controllers/NavbarCtrl.js"></script>
 <script src="/media/angular/controllers/ThanksCtrl.js"></script>
+<script src="/media/angular/controllers/PhotoCtrl.js"></script>
 
+<script>
+    var c = document.getElementById("c");
+var ctx = c.getContext("2d");
 
+//making the canvas full screen
+c.height = window.innerHeight;
+c.width = window.innerWidth;
+
+//chinese characters - taken from the unicode charset
+var chinese = "10";
+//converting the string into an array of single characters
+chinese = chinese.split("");
+
+var font_size = 10;
+var columns = c.width/font_size; //number of columns for the rain
+//an array of drops - one per column
+var drops = [];
+//x below is the x coordinate
+//1 = y co-ordinate of the drop(same for every drop initially)
+for(var x = 0; x < columns; x++)
+	drops[x] = 1;
+
+//drawing the characters
+function draw()
+{
+	//Black BG for the canvas
+	//translucent BG to show trail
+	ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
+	ctx.fillRect(0, 0, c.width, c.height);
+
+	ctx.fillStyle = "#0F0"; //green text
+	ctx.font = font_size + "px arial";
+	//looping over drops
+	for(var i = 0; i < drops.length; i++)
+	{
+		//a random chinese character to print
+		var text = chinese[Math.floor(Math.random()*chinese.length)];
+		//x = i*font_size, y = value of drops[i]*font_size
+		ctx.fillText(text, i*font_size, drops[i]*font_size);
+
+		//sending the drop back to the top randomly after it has crossed the screen
+		//adding a randomness to the reset to make the drops scattered on the Y axis
+		if(drops[i]*font_size > c.height && Math.random() > 0.975)
+			drops[i] = 0;
+
+		//incrementing Y coordinate
+		drops[i]++;
+	}
+}
+
+setInterval(draw, 33);
+
+</script>
 </body>
 
 </html>

@@ -93,7 +93,7 @@ $(document).ready(function() {
     interact('.dropzone').dropzone({
         // only accept elements matching this CSS selector
         accept: '#mattress',
-        overlap: 0.92,
+        overlap: 0.05,
 
         // listen for drop related events:
 

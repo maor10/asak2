@@ -1,22 +1,23 @@
 <teacher-filter teachers="gallery.teachers" tracks="gallery.tracks" on-filter="gallery.onFilter(filteredTeachers)"></teacher-filter>
 
 <div class="row" data-toggle="isotope" style="text-align:center">
-    <div class="col-xs-12 col-md-6 col-lg-4 item photo-block" ng-repeat="photo in gallery.filteredPhotos">
-        <div class="panel panel-default relative">
-            <img ng-src="{{ photo.thumbnail }}" alt="place" class="img-responsive">
-            <div class="panel-body">
-                <span>{{ photo.text }}</span>
-                <hr/>
-                <div>
-                    <a ng-repeat="teacher in photo.teachers" href="asak#!/teachers/{{ teacher.id }}" class="btn btn-primary btn-xs teacher-tag">
-                        #{{ teacher.name }}
-                    </a>
+    <div class="col-xs-12 col-md-6 col-lg-4" ng-repeat="photo in gallery.filteredPhotos">
+        <div class="photo-block">
+            <div class="panel panel-default relative">
+                <img ng-click="gallery.openPhotoModal(photo)" ng-src="{{ photo.thumbnail }}" alt="place" class="img-responsive">
+                <div class="panel-body">
+                    <span>{{ photo.text }}</span>
+                    <hr/>
+                    <div>
+                        <a ng-repeat="teacher in photo.teachers" href="asak#!/teachers/{{ teacher.id }}" class="btn btn-primary btn-xs teacher-tag">
+                            #{{ teacher.name }}
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
 
 
 <button style="position: fixed !important; background-color: #26a69a; bottom: 60px; right: 30px" class="md-fab md-fab-bottom-right docs-scroll-fab md-button md-ink-ripple scrolling" type="button"
@@ -27,3 +28,5 @@
 
     <div class="md-ripple-container"></div>
 </button>
+
+
