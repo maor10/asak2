@@ -53,10 +53,10 @@ class Teacher(db.Model):
     track_id = db.Column(db.Integer, db.ForeignKey('track.id'))
     comments = db.relationship('Comment', backref="teacher")
 
-    def __init__(self, name):
-        self.name = name
-
     def __repr__(self):
+        return '<Teacher %r>' % self.name
+
+    def __str__(self):
         return '<Teacher %r>' % self.name
 
 
@@ -84,6 +84,9 @@ class Track(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.Text(256))
     teachers = db.relationship('Teacher', backref='track')
+
+    def __str__(self):
+        return '<Track %r>' % self.name
 
 
 class Comment(db.Model):
